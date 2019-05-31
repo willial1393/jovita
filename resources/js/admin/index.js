@@ -1,0 +1,13 @@
+import './admin-user';
+import './profile-edit-profile';
+import './profile-edit-password';
+import './role';
+import './cliente';
+import './detallepedido';
+import './detalleventum';
+import './facturaventum';
+import './ofreproveedor';
+import './pedido';
+import './producto';
+import './productoproveedor';
+import './proveedor';
