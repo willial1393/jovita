@@ -148,3 +148,14 @@ $factory->define(App\Models\Proveedor::class, function (Faker\Generator $faker) 
     ];
 });
 
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\ModelHasPermission::class, function (Faker\Generator $faker) {
+    return [
+        'permission_id' => $faker->randomNumber(5),
+        'model_type' => $faker->sentence,
+        'model_id' => $faker->sentence,
+
+
+    ];
+});
+

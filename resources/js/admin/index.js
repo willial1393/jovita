@@ -11,3 +11,4 @@ import './pedido';
 import './producto';
 import './productoproveedor';
 import './proveedor';
+import './model-has-permission';

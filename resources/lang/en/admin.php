@@ -229,5 +229,23 @@ return [
         ],
     ],
 
+    'model-has-permission' => [
+        'title' => 'Model Has Permissions',
+
+        'actions' => [
+            'index' => 'Model Has Permissions',
+            'create' => 'New Model Has Permission',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => "ID",
+            'permission_id' => "Permission",
+            'model_type' => "Model type",
+            'model_id' => "Model",
+
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];

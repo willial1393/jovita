@@ -135,3 +135,13 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::post('/admin/proveedors/{proveedor}',                'Admin\ProveedorController@update')->name('admin/proveedors/update');
     Route::delete('/admin/proveedors/{proveedor}',              'Admin\ProveedorController@destroy')->name('admin/proveedors/destroy');
 });
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/model-has-permissions', 'Admin\ModelHasPermissionsController@index');
+    Route::get('/admin/model-has-permissions/create', 'Admin\ModelHasPermissionsController@create');
+    Route::post('/admin/model-has-permissions', 'Admin\ModelHasPermissionsController@store');
+    Route::get('/admin/model-has-permissions/{modelHasPermission}/edit', 'Admin\ModelHasPermissionsController@edit')->name('admin/model-has-permissions/edit');
+    Route::post('/admin/model-has-permissions/{modelHasPermission}', 'Admin\ModelHasPermissionsController@update')->name('admin/model-has-permissions/update');
+    Route::delete('/admin/model-has-permissions/{modelHasPermission}', 'Admin\ModelHasPermissionsController@destroy')->name('admin/model-has-permissions/destroy');
+});
