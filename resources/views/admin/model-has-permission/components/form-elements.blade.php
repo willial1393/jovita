@@ -3,11 +3,12 @@
     <label for="permission_id" class="col-form-label text-md-right"
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.model-has-permission.columns.permission_id') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.permission_id" v-validate="'required|integer'" @input="validate($event)"
-               class="form-control"
-               :class="{'form-control-danger': errors.has('permission_id'), 'form-control-success': this.fields.permission_id && this.fields.permission_id.valid}"
-               id="permission_id" name="permission_id"
-               placeholder="{{ trans('admin.model-has-permission.columns.permission_id') }}">
+        <multiselect v-model="form.permission_id"
+                     placeholder="{{ trans('admin.model-has-permission.columns.permission_id') }}"
+                     :options="{{ $permisos->toJson()}}.map(type => type.id)"
+                     :custom-label="opt => {{$permisos->toJson()}}.find(x => x.id == opt).name"
+                     :close-on-select="true"
+                     open-direction="bottom"></multiselect>
         <div v-if="errors.has('permission_id')" class="form-control-feedback form-text" v-cloak>@{{
             errors.first('permission_id') }}
         </div>
@@ -22,7 +23,7 @@
         <input type="text" v-model="form.model_type" v-validate="'required'" @input="validate($event)"
                class="form-control"
                :class="{'form-control-danger': errors.has('model_type'), 'form-control-success': this.fields.model_type && this.fields.model_type.valid}"
-               id="model_type" name="model_type" value="Brackets\AdminAuth\Models\AdminUser"
+               id="model_type" name="model_type"
                placeholder="{{ trans('admin.model-has-permission.columns.model_type') }}">
         <div v-if="errors.has('model_type')" class="form-control-feedback form-text" v-cloak>@{{
             errors.first('model_type') }}
@@ -36,16 +37,12 @@
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.model-has-permission.columns.model_id') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
         <multiselect v-model="form.model_id" placeholder="{{ trans('admin.model-has-permission.columns.model_id') }}"
-                     track-by="id" :close-on-select="true"
                      :options="{{ $roles->toJson()}}.map(type => type.id)"
                      :custom-label="opt => {{$roles->toJson()}}.find(x => x.id == opt).name"
-                     :multiple="false"
+                     :close-on-select="true"
                      open-direction="bottom"></multiselect>
         <div v-if="errors.has('model_id')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('model_id')
             }}
         </div>
     </div>
 </div>
-
-
-

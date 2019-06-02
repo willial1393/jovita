@@ -6,6 +6,7 @@ use App\Http\Requests\Admin\ModelHasPermission\IndexModelHasPermission;
 use App\Http\Requests\Admin\ModelHasPermission\StoreModelHasPermission;
 use App\Http\Requests\Admin\ModelHasPermission\UpdateModelHasPermission;
 use App\Models\ModelHasPermission;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -47,10 +48,13 @@ class ModelHasPermissionsController extends Controller
      */
     public function create()
     {
+        $modelHasPermission = new ModelHasPermission();
+        $modelHasPermission->model_type = 'Brackets\AdminAuth\Models\AdminUser';
         $this->authorize('admin.model-has-permission.create');
-
         return view('admin.model-has-permission.create')
-            ->with('roles', Role::get());
+            ->with('modelHasPermission', $modelHasPermission)
+            ->with('roles', Role::get())
+            ->with('permisos', Permission::get());
     }
 
     /**

@@ -10,7 +10,7 @@
 
             <model-has-permission-form
                     :action="'{{ url('admin/model-has-permissions') }}'"
-
+                    :data="{{ $modelHasPermission->toJson() }}"
                     inline-template>
 
                 <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="this.action"
