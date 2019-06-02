@@ -1,17 +1,17 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Admin\AdminUser\DestroyAdminUser;
 use App\Http\Requests\Admin\AdminUser\IndexAdminUser;
 use App\Http\Requests\Admin\AdminUser\StoreAdminUser;
 use App\Http\Requests\Admin\AdminUser\UpdateAdminUser;
-use App\Http\Requests\Admin\AdminUser\DestroyAdminUser;
-use Brackets\AdminListing\Facades\AdminListing;
-use Brackets\AdminAuth\Models\AdminUser;
-use Illuminate\Support\Facades\Config;
-use Brackets\AdminAuth\Services\ActivationService;
 use Brackets\AdminAuth\Activation\Facades\Activation;
+use Brackets\AdminAuth\Models\AdminUser;
+use Brackets\AdminAuth\Services\ActivationService;
+use Brackets\AdminListing\Facades\AdminListing;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Role;
 
 class AdminUsersController extends Controller
@@ -132,7 +132,7 @@ class AdminUsersController extends Controller
         return view('admin.admin-user.edit', [
             'adminUser' => $adminUser,
             'activation' => Config::get('admin-auth.activation_enabled'),
-            'roles' => Role::where('guard_name', $this->guard)->get(),
+            'roles' => Role::get(),
         ]);
     }
 

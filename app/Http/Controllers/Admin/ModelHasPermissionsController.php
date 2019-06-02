@@ -49,7 +49,8 @@ class ModelHasPermissionsController extends Controller
     {
         $this->authorize('admin.model-has-permission.create');
 
-        return view('admin.model-has-permission.create');
+        return view('admin.model-has-permission.create')
+            ->with('roles', Role::get());
     }
 
     /**
@@ -99,6 +100,7 @@ class ModelHasPermissionsController extends Controller
 
         return view('admin.model-has-permission.edit', [
             'modelHasPermission' => $modelHasPermission,
+            'roles' => Role::get()
         ]);
     }
 

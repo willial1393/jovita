@@ -25,8 +25,7 @@ class StoreModelHasPermission extends FormRequest
         return [
             'permission_id' => ['required', 'integer'],
             'model_type' => ['required', 'string'],
-            'model_id' => ['required', 'string'],
-
+            'model_id' => ['required', 'integer'],
         ];
     }
 }

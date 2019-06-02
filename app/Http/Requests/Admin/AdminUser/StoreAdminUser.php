@@ -1,10 +1,10 @@
 <?php namespace App\Http\Requests\Admin\AdminUser;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class StoreAdminUser extends FormRequest
 {
@@ -52,7 +52,7 @@ class StoreAdminUser extends FormRequest
     public function getModifiedData()
     {
         $data = $this->only(collect($this->rules())->keys()->all());
-        //TODO: is this ok?
+
         if(!Config::get('admin-auth.activation_enabled')) {
             $data['activated'] = true;
         }
