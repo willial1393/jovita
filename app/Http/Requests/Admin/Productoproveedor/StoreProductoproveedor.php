@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 
 class StoreProductoproveedor extends FormRequest
 {
@@ -25,7 +24,7 @@ class StoreProductoproveedor extends FormRequest
     {
         return [
             'producto_id' => ['required', 'integer'],
-            'ofreProveedor_id' => ['required', 'integer'],
+            'proveedor_id' => ['required', 'integer'],
             
         ];
     }

@@ -159,3 +159,40 @@ $factory->define(App\Models\ModelHasPermission::class, function (Faker\Generator
     ];
 });
 
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Proveedor::class, function (Faker\Generator $faker) {
+    return [
+        'codigo' => $faker->randomNumber(5),
+        'empresa' => $faker->sentence,
+        'estado' => $faker->sentence,
+        'representante' => $faker->sentence,
+
+
+    ];
+});
+
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Productoproveedor::class, function (Faker\Generator $faker) {
+    return [
+        'producto_id' => $faker->randomNumber(5),
+        'proveedor_id' => $faker->randomNumber(5),
+
+
+    ];
+});
+
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Ofreproveedor::class, function (Faker\Generator $faker) {
+    return [
+        'descuento' => $faker->randomNumber(5),
+        'estado' => $faker->sentence,
+        'identificacion' => $faker->randomNumber(5),
+        'insumo_id' => $faker->randomNumber(5),
+        'precio' => $faker->randomNumber(5),
+        'proveedor_id' => $faker->randomNumber(5),
+        'unidad' => $faker->sentence,
+
+
+    ];
+});
+

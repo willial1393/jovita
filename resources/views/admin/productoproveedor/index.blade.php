@@ -45,7 +45,8 @@
                                 <tr>
                                     <th is='sortable' :column="'id'">{{ trans('admin.productoproveedor.columns.id') }}</th>
                                     <th is='sortable' :column="'producto_id'">{{ trans('admin.productoproveedor.columns.producto_id') }}</th>
-                                    <th is='sortable' :column="'ofreProveedor_id'">{{ trans('admin.productoproveedor.columns.ofreProveedor_id') }}</th>
+                                    <th is='sortable'
+                                        :column="'proveedor_id'">{{ trans('admin.productoproveedor.columns.proveedor_id') }}</th>
                                     
                                     <th></th>
                                 </tr>
@@ -54,7 +55,7 @@
                                 <tr v-for="(item, index) in collection">
                                     <td>@{{ item.id }}</td>
                                     <td>@{{ item.producto_id }}</td>
-                                    <td>@{{ item.ofreProveedor_id }}</td>
+                                    <td>@{{ item.proveedor_id }}</td>
                                     
                                     <td>
                                         <div class="row no-gutters">

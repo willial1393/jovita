@@ -24,13 +24,13 @@ class UpdateOfreproveedor extends FormRequest
     public function rules()
     {
         return [
-            'identificacion' => ['sometimes', Rule::unique('ofreproveedor', 'identificacion')->ignore($this->ofreproveedor->getKey(), $this->ofreproveedor->getKeyName()), 'integer'],
             'descuento' => ['nullable', 'integer'],
             'estado' => ['nullable', 'string'],
-            'unidad' => ['nullable', 'string'],
+            'identificacion' => ['sometimes', Rule::unique('ofreproveedor', 'identificacion')->ignore($this->ofreproveedor->getKey(), $this->ofreproveedor->getKeyName()), 'integer'],
+            'insumo_id' => ['sometimes', 'integer'],
             'precio' => ['nullable', 'integer'],
             'proveedor_id' => ['sometimes', 'integer'],
-            'insumo_id' => ['sometimes', 'integer'],
+            'unidad' => ['nullable', 'string'],
             
         ];
     }

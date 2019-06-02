@@ -46,8 +46,9 @@
                                     <th is='sortable' :column="'id'">{{ trans('admin.proveedor.columns.id') }}</th>
                                     <th is='sortable' :column="'codigo'">{{ trans('admin.proveedor.columns.codigo') }}</th>
                                     <th is='sortable' :column="'empresa'">{{ trans('admin.proveedor.columns.empresa') }}</th>
-                                    <th is='sortable' :column="'representante'">{{ trans('admin.proveedor.columns.representante') }}</th>
                                     <th is='sortable' :column="'estado'">{{ trans('admin.proveedor.columns.estado') }}</th>
+                                    <th is='sortable'
+                                        :column="'representante'">{{ trans('admin.proveedor.columns.representante') }}</th>
                                     
                                     <th></th>
                                 </tr>
@@ -57,8 +58,8 @@
                                     <td>@{{ item.id }}</td>
                                     <td>@{{ item.codigo }}</td>
                                     <td>@{{ item.empresa }}</td>
-                                    <td>@{{ item.representante }}</td>
                                     <td>@{{ item.estado }}</td>
+                                    <td>@{{ item.representante }}</td>
                                     
                                     <td>
                                         <div class="row no-gutters">

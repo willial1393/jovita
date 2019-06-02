@@ -5,15 +5,15 @@ use Illuminate\Database\Eloquent\Model;
 class Ofreproveedor extends Model
 {
 
-    protected $table = "ofreproveedor";
+    protected $table = 'ofreproveedor';
     protected $fillable = [
-        "identificacion",
         "descuento",
         "estado",
-        "unidad",
+        "identificacion",
+        "insumo_id",
         "precio",
         "proveedor_id",
-        "insumo_id",
+        "unidad",
     
     ];
     

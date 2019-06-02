@@ -145,3 +145,34 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::post('/admin/model-has-permissions/{modelHasPermission}', 'Admin\ModelHasPermissionsController@update')->name('admin/model-has-permissions/update');
     Route::delete('/admin/model-has-permissions/{modelHasPermission}', 'Admin\ModelHasPermissionsController@destroy')->name('admin/model-has-permissions/destroy');
 });
+
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/proveedors', 'Admin\ProveedorController@index');
+    Route::get('/admin/proveedors/create', 'Admin\ProveedorController@create');
+    Route::post('/admin/proveedors', 'Admin\ProveedorController@store');
+    Route::get('/admin/proveedors/{proveedor}/edit', 'Admin\ProveedorController@edit')->name('admin/proveedors/edit');
+    Route::post('/admin/proveedors/{proveedor}', 'Admin\ProveedorController@update')->name('admin/proveedors/update');
+    Route::delete('/admin/proveedors/{proveedor}', 'Admin\ProveedorController@destroy')->name('admin/proveedors/destroy');
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/productoproveedors', 'Admin\ProductoproveedorController@index');
+    Route::get('/admin/productoproveedors/create', 'Admin\ProductoproveedorController@create');
+    Route::post('/admin/productoproveedors', 'Admin\ProductoproveedorController@store');
+    Route::get('/admin/productoproveedors/{productoproveedor}/edit', 'Admin\ProductoproveedorController@edit')->name('admin/productoproveedors/edit');
+    Route::post('/admin/productoproveedors/{productoproveedor}', 'Admin\ProductoproveedorController@update')->name('admin/productoproveedors/update');
+    Route::delete('/admin/productoproveedors/{productoproveedor}', 'Admin\ProductoproveedorController@destroy')->name('admin/productoproveedors/destroy');
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/ofreproveedors', 'Admin\OfreproveedorController@index');
+    Route::get('/admin/ofreproveedors/create', 'Admin\OfreproveedorController@create');
+    Route::post('/admin/ofreproveedors', 'Admin\OfreproveedorController@store');
+    Route::get('/admin/ofreproveedors/{ofreproveedor}/edit', 'Admin\OfreproveedorController@edit')->name('admin/ofreproveedors/edit');
+    Route::post('/admin/ofreproveedors/{ofreproveedor}', 'Admin\OfreproveedorController@update')->name('admin/ofreproveedors/update');
+    Route::delete('/admin/ofreproveedors/{ofreproveedor}', 'Admin\OfreproveedorController@destroy')->name('admin/ofreproveedors/destroy');
+});

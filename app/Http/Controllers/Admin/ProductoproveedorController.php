@@ -1,14 +1,13 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Admin\Productoproveedor\DestroyProductoproveedor;
 use App\Http\Requests\Admin\Productoproveedor\IndexProductoproveedor;
 use App\Http\Requests\Admin\Productoproveedor\StoreProductoproveedor;
 use App\Http\Requests\Admin\Productoproveedor\UpdateProductoproveedor;
-use App\Http\Requests\Admin\Productoproveedor\DestroyProductoproveedor;
-use Brackets\AdminListing\Facades\AdminListing;
 use App\Models\Productoproveedor;
+use Brackets\AdminListing\Facades\AdminListing;
+use Illuminate\Http\Response;
 
 class ProductoproveedorController extends Controller
 {
@@ -27,7 +26,7 @@ class ProductoproveedorController extends Controller
             $request,
 
             // set columns to query
-            ['id', 'producto_id', 'ofreProveedor_id'],
+            ['id', 'producto_id', 'proveedor_id'],
 
             // set columns to searchIn
             ['id']

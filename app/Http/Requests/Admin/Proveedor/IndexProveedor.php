@@ -23,7 +23,7 @@ class IndexProveedor extends FormRequest
     public function rules()
     {
         return [
-            'orderBy' => 'in:id,codigo,empresa,representante,estado|nullable',
+            'orderBy' => 'in:id,codigo,empresa,estado,representante|nullable',
             'orderDirection' => 'in:asc,desc|nullable',
             'search' => 'string|nullable',
             'page' => 'integer|nullable',

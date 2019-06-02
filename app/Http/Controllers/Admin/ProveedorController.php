@@ -1,14 +1,13 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Admin\Proveedor\DestroyProveedor;
 use App\Http\Requests\Admin\Proveedor\IndexProveedor;
 use App\Http\Requests\Admin\Proveedor\StoreProveedor;
 use App\Http\Requests\Admin\Proveedor\UpdateProveedor;
-use App\Http\Requests\Admin\Proveedor\DestroyProveedor;
-use Brackets\AdminListing\Facades\AdminListing;
 use App\Models\Proveedor;
+use Brackets\AdminListing\Facades\AdminListing;
+use Illuminate\Http\Response;
 
 class ProveedorController extends Controller
 {
@@ -27,10 +26,10 @@ class ProveedorController extends Controller
             $request,
 
             // set columns to query
-            ['id', 'codigo', 'empresa', 'representante', 'estado'],
+            ['codigo', 'empresa', 'estado', 'id', 'representante'],
 
             // set columns to searchIn
-            ['id', 'empresa', 'representante', 'estado']
+            ['empresa', 'estado', 'id', 'representante']
         );
 
         if ($request->ajax()) {

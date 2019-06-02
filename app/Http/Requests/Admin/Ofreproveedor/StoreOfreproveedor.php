@@ -24,13 +24,13 @@ class StoreOfreproveedor extends FormRequest
     public function rules()
     {
         return [
-            'identificacion' => ['required', Rule::unique('ofreproveedor', 'identificacion'), 'integer'],
             'descuento' => ['nullable', 'integer'],
             'estado' => ['nullable', 'string'],
-            'unidad' => ['nullable', 'string'],
+            'identificacion' => ['required', Rule::unique('ofreproveedor', 'identificacion'), 'integer'],
+            'insumo_id' => ['required', 'integer'],
             'precio' => ['nullable', 'integer'],
             'proveedor_id' => ['required', 'integer'],
-            'insumo_id' => ['required', 'integer'],
+            'unidad' => ['nullable', 'string'],
             
         ];
     }

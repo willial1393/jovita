@@ -26,8 +26,8 @@ class StoreProveedor extends FormRequest
         return [
             'codigo' => ['required', Rule::unique('proveedor', 'codigo'), 'integer'],
             'empresa' => ['nullable', 'string'],
-            'representante' => ['nullable', 'string'],
             'estado' => ['nullable', 'string'],
+            'representante' => ['nullable', 'string'],
             
         ];
     }

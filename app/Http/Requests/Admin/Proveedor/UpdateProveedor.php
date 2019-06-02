@@ -26,8 +26,8 @@ class UpdateProveedor extends FormRequest
         return [
             'codigo' => ['sometimes', Rule::unique('proveedor', 'codigo')->ignore($this->proveedor->getKey(), $this->proveedor->getKeyName()), 'integer'],
             'empresa' => ['nullable', 'string'],
-            'representante' => ['nullable', 'string'],
             'estado' => ['nullable', 'string'],
+            'representante' => ['nullable', 'string'],
             
         ];
     }
