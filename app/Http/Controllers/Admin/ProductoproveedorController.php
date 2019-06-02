@@ -5,9 +5,11 @@ use App\Http\Requests\Admin\Productoproveedor\DestroyProductoproveedor;
 use App\Http\Requests\Admin\Productoproveedor\IndexProductoproveedor;
 use App\Http\Requests\Admin\Productoproveedor\StoreProductoproveedor;
 use App\Http\Requests\Admin\Productoproveedor\UpdateProductoproveedor;
+use App\Models\Producto;
 use App\Models\Productoproveedor;
-use Brackets\AdminListing\Facades\AdminListing;
+use App\Models\Proveedor;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductoproveedorController extends Controller
 {
@@ -15,28 +17,26 @@ class ProductoproveedorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexProductoproveedor $request
+     * @param IndexProductoproveedor $request
      * @return Response|array
      */
     public function index(IndexProductoproveedor $request)
     {
-        // create and AdminListing instance for a specific model and
-        $data = AdminListing::create(Productoproveedor::class)->processRequestAndGet(
-            // pass the request with params
-            $request,
+        $prueba = Productoproveedor::with('producto')
+            ->with('proveedor')
+            ->get();
 
-            // set columns to query
-            ['id', 'producto_id', 'proveedor_id'],
-
-            // set columns to searchIn
-            ['id']
-        );
+        if ($request->has('search')) {
+            $proveedor = Proveedor::where('empresa', 'like', '%' . $request->search . '%')->first();
+            $prueba = $prueba->where('proveedor_id', $proveedor->id)->all();
+        }
+        $paginator = new LengthAwarePaginator($prueba, count($prueba), 10, 1);
 
         if ($request->ajax()) {
-            return ['data' => $data];
+            return ['data' => $paginator];
         }
 
-        return view('admin.productoproveedor.index', ['data' => $data]);
+        return view('admin.productoproveedor.index', ['data' => $paginator]);
 
     }
 
@@ -50,13 +50,15 @@ class ProductoproveedorController extends Controller
     {
         $this->authorize('admin.productoproveedor.create');
 
-        return view('admin.productoproveedor.create');
+        return view('admin.productoproveedor.create')
+            ->with('productos', Producto::get())
+            ->with('proveedores', Proveedor::get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreProductoproveedor $request
+     * @param StoreProductoproveedor $request
      * @return Response|array
      */
     public function store(StoreProductoproveedor $request)
@@ -77,7 +79,7 @@ class ProductoproveedorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Productoproveedor $productoproveedor
+     * @param Productoproveedor $productoproveedor
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -91,7 +93,7 @@ class ProductoproveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Productoproveedor $productoproveedor
+     * @param Productoproveedor $productoproveedor
      * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -101,14 +103,15 @@ class ProductoproveedorController extends Controller
 
         return view('admin.productoproveedor.edit', [
             'productoproveedor' => $productoproveedor,
-        ]);
+        ])->with('productos', Producto::get())
+            ->with('proveedores', Proveedor::get());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateProductoproveedor $request
-     * @param  Productoproveedor $productoproveedor
+     * @param UpdateProductoproveedor $request
+     * @param Productoproveedor $productoproveedor
      * @return Response|array
      */
     public function update(UpdateProductoproveedor $request, Productoproveedor $productoproveedor)
@@ -129,8 +132,8 @@ class ProductoproveedorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DestroyProductoproveedor $request
-     * @param  Productoproveedor $productoproveedor
+     * @param DestroyProductoproveedor $request
+     * @param Productoproveedor $productoproveedor
      * @return Response|bool
      * @throws \Exception
      */
@@ -145,4 +148,4 @@ class ProductoproveedorController extends Controller
         return redirect()->back();
     }
 
-    }
+}

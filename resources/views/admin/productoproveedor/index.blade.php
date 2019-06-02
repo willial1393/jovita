@@ -54,8 +54,8 @@
                             <tbody>
                                 <tr v-for="(item, index) in collection">
                                     <td>@{{ item.id }}</td>
-                                    <td>@{{ item.producto_id }}</td>
-                                    <td>@{{ item.proveedor_id }}</td>
+                                    <td>@{{ item.producto.nombre }}</td>
+                                    <td>@{{ item.proveedor.empresa }}</td>
                                     
                                     <td>
                                         <div class="row no-gutters">

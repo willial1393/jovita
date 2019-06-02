@@ -31,5 +31,14 @@ class Productoproveedor extends Model
         return url('/admin/productoproveedors/'.$this->getKey());
     }
 
+    public function producto()
+    {
+        return $this->hasOne(Producto::class, 'id', 'producto_id');
+    }
+
+    public function proveedor()
+    {
+        return $this->hasOne(Proveedor::class, 'id', 'proveedor_id');
+    }
     
 }
