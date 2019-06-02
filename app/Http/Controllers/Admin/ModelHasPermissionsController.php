@@ -104,7 +104,8 @@ class ModelHasPermissionsController extends Controller
 
         return view('admin.model-has-permission.edit', [
             'modelHasPermission' => $modelHasPermission,
-            'roles' => Role::get()
+            'roles' => Role::get(),
+            'permisos' => Permission::get()
         ]);
     }
 

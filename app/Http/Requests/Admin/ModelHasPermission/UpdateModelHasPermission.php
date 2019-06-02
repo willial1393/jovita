@@ -25,7 +25,7 @@ class UpdateModelHasPermission extends FormRequest
         return [
             'permission_id' => ['sometimes', 'integer'],
             'model_type' => ['sometimes', 'string'],
-            'model_id' => ['sometimes', 'string'],
+            'model_id' => ['sometimes', 'integer'],
 
         ];
     }

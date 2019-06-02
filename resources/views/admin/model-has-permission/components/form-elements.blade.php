@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div class="form-group row align-items-center"
+<div hidden class="form-group row align-items-center"
      :class="{'has-danger': errors.has('model_type'), 'has-success': this.fields.model_type && this.fields.model_type.valid }">
     <label for="model_type" class="col-form-label text-md-right"
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.model-has-permission.columns.model_type') }}</label>
