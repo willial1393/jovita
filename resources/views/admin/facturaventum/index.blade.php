@@ -44,11 +44,15 @@
                             <thead>
                                 <tr>
                                     <th is='sortable' :column="'id'">{{ trans('admin.facturaventum.columns.id') }}</th>
-                                    <th is='sortable' :column="'numero'">{{ trans('admin.facturaventum.columns.numero') }}</th>
-                                    <th is='sortable' :column="'fecha'">{{ trans('admin.facturaventum.columns.fecha') }}</th>
-                                    <th is='sortable' :column="'estado'">{{ trans('admin.facturaventum.columns.estado') }}</th>
+                                    <th is='sortable'
+                                        :column="'admin_users_id'">{{ trans('admin.facturaventum.columns.admin_users_id') }}</th>
                                     <th is='sortable' :column="'cliente_id'">{{ trans('admin.facturaventum.columns.cliente_id') }}</th>
-                                    <th is='sortable' :column="'usuario_id'">{{ trans('admin.facturaventum.columns.usuario_id') }}</th>
+                                    <th is='sortable'
+                                        :column="'estado'">{{ trans('admin.facturaventum.columns.estado') }}</th>
+                                    <th is='sortable'
+                                        :column="'fecha'">{{ trans('admin.facturaventum.columns.fecha') }}</th>
+                                    <th is='sortable'
+                                        :column="'numero'">{{ trans('admin.facturaventum.columns.numero') }}</th>
                                     
                                     <th></th>
                                 </tr>
@@ -56,11 +60,11 @@
                             <tbody>
                                 <tr v-for="(item, index) in collection">
                                     <td>@{{ item.id }}</td>
-                                    <td>@{{ item.numero }}</td>
-                                    <td>@{{ item.fecha | date }}</td>
-                                    <td>@{{ item.estado }}</td>
+                                    <td>@{{ item.admin_users_id }}</td>
                                     <td>@{{ item.cliente_id }}</td>
-                                    <td>@{{ item.usuario_id }}</td>
+                                    <td>@{{ item.estado }}</td>
+                                    <td>@{{ item.fecha | date }}</td>
+                                    <td>@{{ item.numero }}</td>
                                     
                                     <td>
                                         <div class="row no-gutters">

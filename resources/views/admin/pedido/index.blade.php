@@ -44,11 +44,13 @@
                             <thead>
                                 <tr>
                                     <th is='sortable' :column="'id'">{{ trans('admin.pedido.columns.id') }}</th>
-                                    <th is='sortable' :column="'numeroPedido'">{{ trans('admin.pedido.columns.numeroPedido') }}</th>
+                                    <th is='sortable'
+                                        :column="'admin_users_id'">{{ trans('admin.pedido.columns.admin_users_id') }}</th>
                                     <th is='sortable' :column="'estado'">{{ trans('admin.pedido.columns.estado') }}</th>
                                     <th is='sortable' :column="'fecha'">{{ trans('admin.pedido.columns.fecha') }}</th>
+                                    <th is='sortable'
+                                        :column="'numeroPedido'">{{ trans('admin.pedido.columns.numeroPedido') }}</th>
                                     <th is='sortable' :column="'proveedor_id'">{{ trans('admin.pedido.columns.proveedor_id') }}</th>
-                                    <th is='sortable' :column="'usuario_id'">{{ trans('admin.pedido.columns.usuario_id') }}</th>
                                     
                                     <th></th>
                                 </tr>
@@ -56,11 +58,11 @@
                             <tbody>
                                 <tr v-for="(item, index) in collection">
                                     <td>@{{ item.id }}</td>
-                                    <td>@{{ item.numeroPedido }}</td>
+                                    <td>@{{ item.admin_users_id }}</td>
                                     <td>@{{ item.estado }}</td>
                                     <td>@{{ item.fecha | date }}</td>
+                                    <td>@{{ item.numeroPedido }}</td>
                                     <td>@{{ item.proveedor_id }}</td>
-                                    <td>@{{ item.usuario_id }}</td>
                                     
                                     <td>
                                         <div class="row no-gutters">

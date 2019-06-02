@@ -1,14 +1,13 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Admin\Pedido\DestroyPedido;
 use App\Http\Requests\Admin\Pedido\IndexPedido;
 use App\Http\Requests\Admin\Pedido\StorePedido;
 use App\Http\Requests\Admin\Pedido\UpdatePedido;
-use App\Http\Requests\Admin\Pedido\DestroyPedido;
-use Brackets\AdminListing\Facades\AdminListing;
 use App\Models\Pedido;
+use Brackets\AdminListing\Facades\AdminListing;
+use Illuminate\Http\Response;
 
 class PedidoController extends Controller
 {
@@ -27,10 +26,10 @@ class PedidoController extends Controller
             $request,
 
             // set columns to query
-            ['id', 'numeroPedido', 'estado', 'fecha', 'proveedor_id', 'usuario_id'],
+            ['admin_users_id', 'estado', 'fecha', 'id', 'numeroPedido', 'proveedor_id'],
 
             // set columns to searchIn
-            ['id', 'estado']
+            ['estado', 'id']
         );
 
         if ($request->ajax()) {

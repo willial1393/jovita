@@ -242,7 +242,9 @@ VALUES (1, '2017_08_24_000000_create_activations_table', 1),
        (20, '2019_05_31_204716_fill_permissions_for_model-has-permission', 13),
        (21, '2019_06_02_220248_fill_permissions_for_proveedor', 14),
        (22, '2019_06_02_220327_fill_permissions_for_productoproveedor', 15),
-       (23, '2019_06_02_220402_fill_permissions_for_ofreproveedor', 16);
+       (23, '2019_06_02_220402_fill_permissions_for_ofreproveedor', 16),
+       (24, '2019_06_02_224140_fill_permissions_for_facturaventum', 17),
+       (25, '2019_06_02_224205_fill_permissions_for_pedido', 18);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla jovita.model_has_permissions

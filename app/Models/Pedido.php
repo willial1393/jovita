@@ -7,11 +7,11 @@ class Pedido extends Model
 
     protected $table = "pedido";
     protected $fillable = [
-        "numeroPedido",
+        "admin_users_id",
         "estado",
         "fecha",
+        "numeroPedido",
         "proveedor_id",
-        "usuario_id",
     
     ];
     

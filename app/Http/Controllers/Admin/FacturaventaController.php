@@ -1,14 +1,13 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Admin\Facturaventum\DestroyFacturaventum;
 use App\Http\Requests\Admin\Facturaventum\IndexFacturaventum;
 use App\Http\Requests\Admin\Facturaventum\StoreFacturaventum;
 use App\Http\Requests\Admin\Facturaventum\UpdateFacturaventum;
-use App\Http\Requests\Admin\Facturaventum\DestroyFacturaventum;
-use Brackets\AdminListing\Facades\AdminListing;
 use App\Models\Facturaventum;
+use Brackets\AdminListing\Facades\AdminListing;
+use Illuminate\Http\Response;
 
 class FacturaventaController extends Controller
 {
@@ -27,10 +26,10 @@ class FacturaventaController extends Controller
             $request,
 
             // set columns to query
-            ['id', 'numero', 'fecha', 'estado', 'cliente_id', 'usuario_id'],
+            ['admin_users_id', 'cliente_id', 'estado', 'fecha', 'id', 'numero'],
 
             // set columns to searchIn
-            ['id', 'estado']
+            ['estado', 'id']
         );
 
         if ($request->ajax()) {

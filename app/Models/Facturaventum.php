@@ -7,11 +7,11 @@ class Facturaventum extends Model
 
     protected $table = "facturaventa";
     protected $fillable = [
-        "numero",
-        "fecha",
-        "estado",
+        "admin_users_id",
         "cliente_id",
-        "usuario_id",
+        "estado",
+        "fecha",
+        "numero",
     
     ];
     

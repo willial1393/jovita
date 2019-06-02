@@ -176,3 +176,24 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::post('/admin/ofreproveedors/{ofreproveedor}', 'Admin\OfreproveedorController@update')->name('admin/ofreproveedors/update');
     Route::delete('/admin/ofreproveedors/{ofreproveedor}', 'Admin\OfreproveedorController@destroy')->name('admin/ofreproveedors/destroy');
 });
+
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/facturaventa', 'Admin\FacturaventaController@index');
+    Route::get('/admin/facturaventa/create', 'Admin\FacturaventaController@create');
+    Route::post('/admin/facturaventa', 'Admin\FacturaventaController@store');
+    Route::get('/admin/facturaventa/{facturaventum}/edit', 'Admin\FacturaventaController@edit')->name('admin/facturaventa/edit');
+    Route::post('/admin/facturaventa/{facturaventum}', 'Admin\FacturaventaController@update')->name('admin/facturaventa/update');
+    Route::delete('/admin/facturaventa/{facturaventum}', 'Admin\FacturaventaController@destroy')->name('admin/facturaventa/destroy');
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/pedidos', 'Admin\PedidoController@index');
+    Route::get('/admin/pedidos/create', 'Admin\PedidoController@create');
+    Route::post('/admin/pedidos', 'Admin\PedidoController@store');
+    Route::get('/admin/pedidos/{pedido}/edit', 'Admin\PedidoController@edit')->name('admin/pedidos/edit');
+    Route::post('/admin/pedidos/{pedido}', 'Admin\PedidoController@update')->name('admin/pedidos/update');
+    Route::delete('/admin/pedidos/{pedido}', 'Admin\PedidoController@destroy')->name('admin/pedidos/destroy');
+});
