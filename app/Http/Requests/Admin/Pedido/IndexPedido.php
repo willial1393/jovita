@@ -23,7 +23,7 @@ class IndexPedido extends FormRequest
     public function rules()
     {
         return [
-            'orderBy' => 'in:id,numeroPedido,estado,fecha,proveedor_id,usuario_id|nullable',
+            'orderBy' => 'in:admin_users_id,estado,fecha,id,numeroPedido,proveedor_id|nullable',
             'orderDirection' => 'in:asc,desc|nullable',
             'search' => 'string|nullable',
             'page' => 'integer|nullable',

@@ -24,11 +24,11 @@ class UpdatePedido extends FormRequest
     public function rules()
     {
         return [
-            'numeroPedido' => ['sometimes', Rule::unique('pedido', 'numeroPedido')->ignore($this->pedido->getKey(), $this->pedido->getKeyName()), 'integer'],
+            'admin_users_id' => ['sometimes', 'integer'],
             'estado' => ['nullable', 'string'],
             'fecha' => ['nullable', 'date'],
+            'numeroPedido' => ['sometimes', Rule::unique('pedido', 'numeroPedido')->ignore($this->pedido->getKey(), $this->pedido->getKeyName()), 'integer'],
             'proveedor_id' => ['sometimes', 'integer'],
-            'usuario_id' => ['sometimes', 'integer'],
             
         ];
     }

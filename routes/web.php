@@ -197,3 +197,14 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::post('/admin/pedidos/{pedido}', 'Admin\PedidoController@update')->name('admin/pedidos/update');
     Route::delete('/admin/pedidos/{pedido}', 'Admin\PedidoController@destroy')->name('admin/pedidos/destroy');
 });
+
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/pedidos', 'Admin\PedidoController@index');
+    Route::get('/admin/pedidos/create', 'Admin\PedidoController@create');
+    Route::post('/admin/pedidos', 'Admin\PedidoController@store');
+    Route::get('/admin/pedidos/{pedido}/edit', 'Admin\PedidoController@edit')->name('admin/pedidos/edit');
+    Route::post('/admin/pedidos/{pedido}', 'Admin\PedidoController@update')->name('admin/pedidos/update');
+    Route::delete('/admin/pedidos/{pedido}', 'Admin\PedidoController@destroy')->name('admin/pedidos/destroy');
+});

@@ -222,3 +222,16 @@ $factory->define(App\Models\Pedido::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Pedido::class, function (Faker\Generator $faker) {
+    return [
+        'admin_users_id' => $faker->randomNumber(5),
+        'estado' => $faker->sentence,
+        'fecha' => $faker->date(),
+        'numeroPedido' => $faker->randomNumber(5),
+        'proveedor_id' => $faker->randomNumber(5),
+
+
+    ];
+});
+

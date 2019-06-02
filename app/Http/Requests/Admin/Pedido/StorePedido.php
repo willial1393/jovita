@@ -24,11 +24,11 @@ class StorePedido extends FormRequest
     public function rules()
     {
         return [
-            'numeroPedido' => ['required', Rule::unique('pedido', 'numeroPedido'), 'integer'],
+            'admin_users_id' => ['required', 'integer'],
             'estado' => ['nullable', 'string'],
             'fecha' => ['nullable', 'date'],
+            'numeroPedido' => ['required', Rule::unique('pedido', 'numeroPedido'), 'integer'],
             'proveedor_id' => ['required', 'integer'],
-            'usuario_id' => ['required', 'integer'],
             
         ];
     }
