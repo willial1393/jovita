@@ -5,9 +5,12 @@ use App\Http\Requests\Admin\Facturaventum\DestroyFacturaventum;
 use App\Http\Requests\Admin\Facturaventum\IndexFacturaventum;
 use App\Http\Requests\Admin\Facturaventum\StoreFacturaventum;
 use App\Http\Requests\Admin\Facturaventum\UpdateFacturaventum;
+use App\Models\Cliente;
 use App\Models\Facturaventum;
-use Brackets\AdminListing\Facades\AdminListing;
+use Brackets\AdminAuth\Models\AdminUser;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class FacturaventaController extends Controller
 {
@@ -15,28 +18,27 @@ class FacturaventaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexFacturaventum $request
+     * @param IndexFacturaventum $request
      * @return Response|array
      */
     public function index(IndexFacturaventum $request)
     {
-        // create and AdminListing instance for a specific model and
-        $data = AdminListing::create(Facturaventum::class)->processRequestAndGet(
-            // pass the request with params
-            $request,
+        $prueba = Facturaventum::with('cliente')
+            ->with('usuario')
+            ->get();
 
-            // set columns to query
-            ['admin_users_id', 'cliente_id', 'estado', 'fecha', 'id', 'numero'],
+        if ($request->has('search')) {
+            $cliente = Cliente::where('documento', 'like', '%' . $request->search . '%')->first();
+            $prueba = $prueba->where('cliente_id', $cliente->id)->all();
+        }
+        $paginator = new LengthAwarePaginator($prueba, count($prueba), 10, 1);
 
-            // set columns to searchIn
-            ['estado', 'id']
-        );
 
         if ($request->ajax()) {
-            return ['data' => $data];
+            return ['data' => $paginator];
         }
 
-        return view('admin.facturaventum.index', ['data' => $data]);
+        return view('admin.facturaventum.index', ['data' => $paginator]);
 
     }
 
@@ -48,15 +50,20 @@ class FacturaventaController extends Controller
      */
     public function create()
     {
+        $facturaventum = new Facturaventum();
+        $facturaventum->admin_users_id = Auth::id();
         $this->authorize('admin.facturaventum.create');
 
-        return view('admin.facturaventum.create');
+        return view('admin.facturaventum.create')
+            ->with('facturaventum', $facturaventum)
+            ->with('clientes', Cliente::all())
+            ->with('usuarios', AdminUser::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreFacturaventum $request
+     * @param StoreFacturaventum $request
      * @return Response|array
      */
     public function store(StoreFacturaventum $request)
@@ -77,7 +84,7 @@ class FacturaventaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Facturaventum $facturaventum
+     * @param Facturaventum $facturaventum
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -91,7 +98,7 @@ class FacturaventaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Facturaventum $facturaventum
+     * @param Facturaventum $facturaventum
      * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -101,14 +108,15 @@ class FacturaventaController extends Controller
 
         return view('admin.facturaventum.edit', [
             'facturaventum' => $facturaventum,
-        ]);
+        ])->with('clientes', Cliente::all())
+            ->with('usuarios', AdminUser::all());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateFacturaventum $request
-     * @param  Facturaventum $facturaventum
+     * @param UpdateFacturaventum $request
+     * @param Facturaventum $facturaventum
      * @return Response|array
      */
     public function update(UpdateFacturaventum $request, Facturaventum $facturaventum)
@@ -129,8 +137,8 @@ class FacturaventaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DestroyFacturaventum $request
-     * @param  Facturaventum $facturaventum
+     * @param DestroyFacturaventum $request
+     * @param Facturaventum $facturaventum
      * @return Response|bool
      * @throws \Exception
      */
@@ -145,4 +153,4 @@ class FacturaventaController extends Controller
         return redirect()->back();
     }
 
-    }
+}

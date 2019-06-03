@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use Brackets\AdminAuth\Models\AdminUser;
 use Illuminate\Database\Eloquent\Model;
 
 class Facturaventum extends Model
@@ -12,21 +13,21 @@ class Facturaventum extends Model
         "estado",
         "fecha",
         "numero",
-    
+
     ];
-    
+
     protected $hidden = [
-    
+
     ];
-    
+
     protected $dates = [
         "fecha",
-    
+
     ];
-    
-    
+
+
     public $timestamps = false;
-    
+
     protected $appends = ['resource_url'];
 
     /* ************************ ACCESSOR ************************* */
@@ -35,5 +36,15 @@ class Facturaventum extends Model
         return url('/admin/facturaventa/'.$this->getKey());
     }
 
-    
+
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class, 'id', 'cliente_id');
+    }
+
+    public function usuario()
+    {
+        return $this->hasOne(AdminUser::class, 'id', 'admin_users_id');
+    }
+
 }

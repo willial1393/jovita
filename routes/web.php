@@ -229,3 +229,14 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::post('/admin/detalleventa/{detalleventum}', 'Admin\DetalleventaController@update')->name('admin/detalleventa/update');
     Route::delete('/admin/detalleventa/{detalleventum}', 'Admin\DetalleventaController@destroy')->name('admin/detalleventa/destroy');
 });
+
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/facturaventa', 'Admin\FacturaventaController@index');
+    Route::get('/admin/facturaventa/create', 'Admin\FacturaventaController@create');
+    Route::post('/admin/facturaventa', 'Admin\FacturaventaController@store');
+    Route::get('/admin/facturaventa/{facturaventum}/edit', 'Admin\FacturaventaController@edit')->name('admin/facturaventa/edit');
+    Route::post('/admin/facturaventa/{facturaventum}', 'Admin\FacturaventaController@update')->name('admin/facturaventa/update');
+    Route::delete('/admin/facturaventa/{facturaventum}', 'Admin\FacturaventaController@destroy')->name('admin/facturaventa/destroy');
+});

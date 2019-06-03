@@ -60,8 +60,8 @@
                             <tbody>
                                 <tr v-for="(item, index) in collection">
                                     <td>@{{ item.id }}</td>
-                                    <td>@{{ item.admin_users_id }}</td>
-                                    <td>@{{ item.cliente_id }}</td>
+                                    <td>@{{ item.usuario.first_name +' '+ item.usuario.last_name }}</td>
+                                    <td>@{{ item.cliente.nombre}}</td>
                                     <td>@{{ item.estado }}</td>
                                     <td>@{{ item.fecha | date }}</td>
                                     <td>@{{ item.numero }}</td>

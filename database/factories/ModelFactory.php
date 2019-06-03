@@ -262,3 +262,16 @@ $factory->define(App\Models\Detalleventum::class, function (Faker\Generator $fak
     ];
 });
 
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Facturaventum::class, function (Faker\Generator $faker) {
+    return [
+        'admin_users_id' => $faker->randomNumber(5),
+        'cliente_id' => $faker->randomNumber(5),
+        'estado' => $faker->sentence,
+        'fecha' => $faker->date(),
+        'numero' => $faker->randomNumber(5),
+
+
+    ];
+});
+

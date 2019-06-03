@@ -24,11 +24,11 @@ class StoreFacturaventum extends FormRequest
     public function rules()
     {
         return [
-            'numero' => ['required', Rule::unique('facturaventa', 'numero'), 'integer'],
-            'fecha' => ['nullable', 'date'],
-            'estado' => ['nullable', 'string'],
+            'admin_users_id' => ['required', 'integer'],
             'cliente_id' => ['required', 'integer'],
-            'usuario_id' => ['required', 'integer'],
+            'estado' => ['nullable', 'string'],
+            'fecha' => ['nullable', 'date'],
+            'numero' => ['required', Rule::unique('facturaventa', 'numero'), 'integer'],
             
         ];
     }

@@ -24,11 +24,11 @@ class UpdateFacturaventum extends FormRequest
     public function rules()
     {
         return [
-            'numero' => ['sometimes', Rule::unique('facturaventa', 'numero')->ignore($this->facturaventum->getKey(), $this->facturaventum->getKeyName()), 'integer'],
-            'fecha' => ['nullable', 'date'],
-            'estado' => ['nullable', 'string'],
+            'admin_users_id' => ['sometimes', 'integer'],
             'cliente_id' => ['sometimes', 'integer'],
-            'usuario_id' => ['sometimes', 'integer'],
+            'estado' => ['nullable', 'string'],
+            'fecha' => ['nullable', 'date'],
+            'numero' => ['sometimes', Rule::unique('facturaventa', 'numero')->ignore($this->facturaventum->getKey(), $this->facturaventum->getKeyName()), 'integer'],
             
         ];
     }

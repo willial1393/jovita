@@ -9,9 +9,9 @@
         <div class="card">
 
             <facturaventum-form
-                :action="'{{ url('admin/facturaventa') }}'"
-                
-                inline-template>
+                    :action="'{{ url('admin/facturaventa') }}'"
+                    :data="{{ $facturaventum->toJson() }}"
+                    inline-template>
 
                 <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="this.action" novalidate>
 

@@ -3,11 +3,13 @@
     <label for="admin_users_id" class="col-form-label text-md-right"
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.facturaventum.columns.admin_users_id') }}</label>
         <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-            <input type="text" v-model="form.admin_users_id" v-validate="'required|integer'" @input="validate($event)"
-                   class="form-control"
-                   :class="{'form-control-danger': errors.has('admin_users_id'), 'form-control-success': this.fields.admin_users_id && this.fields.admin_users_id.valid}"
-                   id="admin_users_id" name="admin_users_id"
-                   placeholder="{{ trans('admin.facturaventum.columns.admin_users_id') }}">
+            <multiselect v-model="form.admin_users_id"
+                         placeholder="{{ trans('admin.facturaventum.columns.admin_users_id') }}"
+                         :options="{{ $usuarios->toJson()}}.map(type => type.id)"
+                         :custom-label="opt => {{$usuarios->toJson()}}.find(x => x.id == opt).first_name +' '+ {{$usuarios->toJson()}}.find(x => x.id == opt).first_name "
+                         :close-on-select="true"
+                         :disabled="true"
+                         open-direction="bottom"></multiselect>
             <div v-if="errors.has('admin_users_id')" class="form-control-feedback form-text" v-cloak>@{{
                 errors.first('admin_users_id') }}
             </div>
@@ -19,10 +21,11 @@
     <label for="cliente_id" class="col-form-label text-md-right"
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.facturaventum.columns.cliente_id') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.cliente_id" v-validate="'required|integer'" @input="validate($event)"
-               class="form-control"
-               :class="{'form-control-danger': errors.has('cliente_id'), 'form-control-success': this.fields.cliente_id && this.fields.cliente_id.valid}"
-               id="cliente_id" name="cliente_id" placeholder="{{ trans('admin.facturaventum.columns.cliente_id') }}">
+        <multiselect v-model="form.cliente_id" placeholder="{{ trans('admin.facturaventum.columns.cliente_id') }}"
+                     :options="{{ $clientes->toJson()}}.map(type => type.id)"
+                     :custom-label="opt => {{$clientes->toJson()}}.find(x => x.id == opt).nombre"
+                     :close-on-select="true"
+                     open-direction="bottom"></multiselect>
         <div v-if="errors.has('cliente_id')" class="form-control-feedback form-text" v-cloak>@{{
             errors.first('cliente_id') }}
         </div>

@@ -23,7 +23,7 @@ class IndexFacturaventum extends FormRequest
     public function rules()
     {
         return [
-            'orderBy' => 'in:id,numero,fecha,estado,cliente_id,usuario_id|nullable',
+            'orderBy' => 'in:admin_users_id,cliente_id,estado,fecha,id,numero|nullable',
             'orderDirection' => 'in:asc,desc|nullable',
             'search' => 'string|nullable',
             'page' => 'integer|nullable',
