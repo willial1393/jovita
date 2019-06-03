@@ -5,15 +5,14 @@ use Illuminate\Database\Eloquent\Model;
 class Detalleventum extends Model
 {
 
-    protected $table = "detalleventa";
+    protected $table = 'detalleventa';
     protected $fillable = [
-        "consecutivo",
-        "totalVenta",
         "cantidad",
-        "PrecioUnidad",
         "estado",
         "facturaVenta_id",
+        "PrecioUnidad",
         "producto_codigo",
+        "totalVenta",
     
     ];
     

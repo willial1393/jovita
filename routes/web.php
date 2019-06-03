@@ -208,3 +208,24 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::post('/admin/pedidos/{pedido}', 'Admin\PedidoController@update')->name('admin/pedidos/update');
     Route::delete('/admin/pedidos/{pedido}', 'Admin\PedidoController@destroy')->name('admin/pedidos/destroy');
 });
+
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/detallepedidos', 'Admin\DetallepedidoController@index');
+    Route::get('/admin/detallepedidos/create', 'Admin\DetallepedidoController@create');
+    Route::post('/admin/detallepedidos', 'Admin\DetallepedidoController@store');
+    Route::get('/admin/detallepedidos/{detallepedido}/edit', 'Admin\DetallepedidoController@edit')->name('admin/detallepedidos/edit');
+    Route::post('/admin/detallepedidos/{detallepedido}', 'Admin\DetallepedidoController@update')->name('admin/detallepedidos/update');
+    Route::delete('/admin/detallepedidos/{detallepedido}', 'Admin\DetallepedidoController@destroy')->name('admin/detallepedidos/destroy');
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/detalleventa', 'Admin\DetalleventaController@index');
+    Route::get('/admin/detalleventa/create', 'Admin\DetalleventaController@create');
+    Route::post('/admin/detalleventa', 'Admin\DetalleventaController@store');
+    Route::get('/admin/detalleventa/{detalleventum}/edit', 'Admin\DetalleventaController@edit')->name('admin/detalleventa/edit');
+    Route::post('/admin/detalleventa/{detalleventum}', 'Admin\DetalleventaController@update')->name('admin/detalleventa/update');
+    Route::delete('/admin/detalleventa/{detalleventum}', 'Admin\DetalleventaController@destroy')->name('admin/detalleventa/destroy');
+});

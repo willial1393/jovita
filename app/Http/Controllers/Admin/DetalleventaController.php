@@ -1,14 +1,13 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Admin\Detalleventum\DestroyDetalleventum;
 use App\Http\Requests\Admin\Detalleventum\IndexDetalleventum;
 use App\Http\Requests\Admin\Detalleventum\StoreDetalleventum;
 use App\Http\Requests\Admin\Detalleventum\UpdateDetalleventum;
-use App\Http\Requests\Admin\Detalleventum\DestroyDetalleventum;
-use Brackets\AdminListing\Facades\AdminListing;
 use App\Models\Detalleventum;
+use Brackets\AdminListing\Facades\AdminListing;
+use Illuminate\Http\Response;
 
 class DetalleventaController extends Controller
 {
@@ -27,10 +26,10 @@ class DetalleventaController extends Controller
             $request,
 
             // set columns to query
-            ['id', 'consecutivo', 'totalVenta', 'cantidad', 'PrecioUnidad', 'estado', 'facturaVenta_id', 'producto_codigo'],
+            ['cantidad', 'estado', 'facturaVenta_id', 'id', 'PrecioUnidad', 'producto_codigo', 'totalVenta'],
 
             // set columns to searchIn
-            ['id', 'estado']
+            ['estado', 'id']
         );
 
         if ($request->ajax()) {

@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 
 class UpdateDetalleventum extends FormRequest
 {
@@ -24,13 +23,12 @@ class UpdateDetalleventum extends FormRequest
     public function rules()
     {
         return [
-            'consecutivo' => ['sometimes', Rule::unique('detalleventa', 'consecutivo')->ignore($this->detalleventum->getKey(), $this->detalleventum->getKeyName()), 'integer'],
-            'totalVenta' => ['nullable', 'integer'],
             'cantidad' => ['nullable', 'integer'],
-            'PrecioUnidad' => ['nullable', 'integer'],
             'estado' => ['nullable', 'string'],
             'facturaVenta_id' => ['sometimes', 'integer'],
+            'PrecioUnidad' => ['nullable', 'integer'],
             'producto_codigo' => ['sometimes', 'integer'],
+            'totalVenta' => ['nullable', 'integer'],
             
         ];
     }

@@ -23,7 +23,7 @@ class IndexDetallepedido extends FormRequest
     public function rules()
     {
         return [
-            'orderBy' => 'in:id,consecutivo,cantidad,valorTotal,estado,pedido_id,producto_codigo|nullable',
+            'orderBy' => 'in:cantidad,estado,id,pedido_id,producto_codigo,valorTotal|nullable',
             'orderDirection' => 'in:asc,desc|nullable',
             'search' => 'string|nullable',
             'page' => 'integer|nullable',

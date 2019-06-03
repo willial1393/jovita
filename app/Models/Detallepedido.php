@@ -5,14 +5,13 @@ use Illuminate\Database\Eloquent\Model;
 class Detallepedido extends Model
 {
 
-    protected $table = "detallepedido";
+    protected $table = 'detallepedido';
     protected $fillable = [
-        "consecutivo",
         "cantidad",
-        "valorTotal",
         "estado",
         "pedido_id",
         "producto_codigo",
+        "valorTotal",
     
     ];
     

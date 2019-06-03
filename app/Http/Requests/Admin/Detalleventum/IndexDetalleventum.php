@@ -23,7 +23,7 @@ class IndexDetalleventum extends FormRequest
     public function rules()
     {
         return [
-            'orderBy' => 'in:id,consecutivo,totalVenta,cantidad,PrecioUnidad,estado,facturaVenta_id,producto_codigo|nullable',
+            'orderBy' => 'in:cantidad,estado,facturaVenta_id,id,PrecioUnidad,producto_codigo,totalVenta|nullable',
             'orderDirection' => 'in:asc,desc|nullable',
             'search' => 'string|nullable',
             'page' => 'integer|nullable',

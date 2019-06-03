@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 
 class StoreDetallepedido extends FormRequest
 {
@@ -24,12 +23,11 @@ class StoreDetallepedido extends FormRequest
     public function rules()
     {
         return [
-            'consecutivo' => ['required', Rule::unique('detallepedido', 'consecutivo'), 'integer'],
             'cantidad' => ['nullable', 'integer'],
-            'valorTotal' => ['nullable', 'integer'],
             'estado' => ['nullable', 'string'],
             'pedido_id' => ['required', 'integer'],
             'producto_codigo' => ['required', 'integer'],
+            'valorTotal' => ['nullable', 'integer'],
             
         ];
     }

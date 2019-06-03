@@ -44,13 +44,14 @@
                             <thead>
                                 <tr>
                                     <th is='sortable' :column="'id'">{{ trans('admin.detalleventum.columns.id') }}</th>
-                                    <th is='sortable' :column="'consecutivo'">{{ trans('admin.detalleventum.columns.consecutivo') }}</th>
-                                    <th is='sortable' :column="'totalVenta'">{{ trans('admin.detalleventum.columns.totalVenta') }}</th>
                                     <th is='sortable' :column="'cantidad'">{{ trans('admin.detalleventum.columns.cantidad') }}</th>
-                                    <th is='sortable' :column="'PrecioUnidad'">{{ trans('admin.detalleventum.columns.PrecioUnidad') }}</th>
                                     <th is='sortable' :column="'estado'">{{ trans('admin.detalleventum.columns.estado') }}</th>
                                     <th is='sortable' :column="'facturaVenta_id'">{{ trans('admin.detalleventum.columns.facturaVenta_id') }}</th>
+                                    <th is='sortable'
+                                        :column="'PrecioUnidad'">{{ trans('admin.detalleventum.columns.PrecioUnidad') }}</th>
                                     <th is='sortable' :column="'producto_codigo'">{{ trans('admin.detalleventum.columns.producto_codigo') }}</th>
+                                    <th is='sortable'
+                                        :column="'totalVenta'">{{ trans('admin.detalleventum.columns.totalVenta') }}</th>
                                     
                                     <th></th>
                                 </tr>
@@ -58,13 +59,12 @@
                             <tbody>
                                 <tr v-for="(item, index) in collection">
                                     <td>@{{ item.id }}</td>
-                                    <td>@{{ item.consecutivo }}</td>
-                                    <td>@{{ item.totalVenta }}</td>
                                     <td>@{{ item.cantidad }}</td>
-                                    <td>@{{ item.PrecioUnidad }}</td>
                                     <td>@{{ item.estado }}</td>
                                     <td>@{{ item.facturaVenta_id }}</td>
+                                    <td>@{{ item.PrecioUnidad }}</td>
                                     <td>@{{ item.producto_codigo }}</td>
+                                    <td>@{{ item.totalVenta }}</td>
                                     
                                     <td>
                                         <div class="row no-gutters">

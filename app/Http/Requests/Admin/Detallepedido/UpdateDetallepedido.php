@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 
 class UpdateDetallepedido extends FormRequest
 {
@@ -24,12 +23,11 @@ class UpdateDetallepedido extends FormRequest
     public function rules()
     {
         return [
-            'consecutivo' => ['sometimes', Rule::unique('detallepedido', 'consecutivo')->ignore($this->detallepedido->getKey(), $this->detallepedido->getKeyName()), 'integer'],
             'cantidad' => ['nullable', 'integer'],
-            'valorTotal' => ['nullable', 'integer'],
             'estado' => ['nullable', 'string'],
             'pedido_id' => ['sometimes', 'integer'],
             'producto_codigo' => ['sometimes', 'integer'],
+            'valorTotal' => ['nullable', 'integer'],
             
         ];
     }

@@ -235,3 +235,30 @@ $factory->define(App\Models\Pedido::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Detallepedido::class, function (Faker\Generator $faker) {
+    return [
+        'cantidad' => $faker->randomNumber(5),
+        'estado' => $faker->sentence,
+        'pedido_id' => $faker->randomNumber(5),
+        'producto_codigo' => $faker->randomNumber(5),
+        'valorTotal' => $faker->randomNumber(5),
+
+
+    ];
+});
+
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Detalleventum::class, function (Faker\Generator $faker) {
+    return [
+        'cantidad' => $faker->randomNumber(5),
+        'estado' => $faker->sentence,
+        'facturaVenta_id' => $faker->randomNumber(5),
+        'PrecioUnidad' => $faker->randomNumber(5),
+        'producto_codigo' => $faker->randomNumber(5),
+        'totalVenta' => $faker->randomNumber(5),
+
+
+    ];
+});
+
