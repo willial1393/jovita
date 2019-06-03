@@ -6,8 +6,10 @@ use App\Http\Requests\Admin\Ofreproveedor\IndexOfreproveedor;
 use App\Http\Requests\Admin\Ofreproveedor\StoreOfreproveedor;
 use App\Http\Requests\Admin\Ofreproveedor\UpdateOfreproveedor;
 use App\Models\Ofreproveedor;
-use Brackets\AdminListing\Facades\AdminListing;
+use App\Models\Producto;
+use App\Models\Proveedor;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class OfreproveedorController extends Controller
 {
@@ -15,28 +17,27 @@ class OfreproveedorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexOfreproveedor $request
+     * @param IndexOfreproveedor $request
      * @return Response|array
      */
     public function index(IndexOfreproveedor $request)
     {
-        // create and AdminListing instance for a specific model and
-        $data = AdminListing::create(Ofreproveedor::class)->processRequestAndGet(
-            // pass the request with params
-            $request,
+        $prueba = Ofreproveedor::with('proveedor')
+            ->with('producto')
+            ->get();
 
-            // set columns to query
-            ['descuento', 'estado', 'id', 'identificacion', 'insumo_id', 'precio', 'proveedor_id', 'unidad'],
+        if ($request->has('search')) {
+            $proveedor = Proveedor::where('empresa', 'like', '%' . $request->search . '%')->first();
+            $prueba = $prueba->where('proveedor_id', $proveedor->id)->all();
+        }
+        $paginator = new LengthAwarePaginator($prueba, count($prueba), 10, 1);
 
-            // set columns to searchIn
-            ['estado', 'id', 'unidad']
-        );
 
         if ($request->ajax()) {
-            return ['data' => $data];
+            return ['data' => $paginator];
         }
 
-        return view('admin.ofreproveedor.index', ['data' => $data]);
+        return view('admin.ofreproveedor.index', ['data' => $paginator]);
 
     }
 
@@ -50,13 +51,15 @@ class OfreproveedorController extends Controller
     {
         $this->authorize('admin.ofreproveedor.create');
 
-        return view('admin.ofreproveedor.create');
+        return view('admin.ofreproveedor.create')
+            ->with('proveedores', Proveedor::all())
+            ->with('productos', Producto::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreOfreproveedor $request
+     * @param StoreOfreproveedor $request
      * @return Response|array
      */
     public function store(StoreOfreproveedor $request)
@@ -77,7 +80,7 @@ class OfreproveedorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Ofreproveedor $ofreproveedor
+     * @param Ofreproveedor $ofreproveedor
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -91,7 +94,7 @@ class OfreproveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Ofreproveedor $ofreproveedor
+     * @param Ofreproveedor $ofreproveedor
      * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -101,14 +104,15 @@ class OfreproveedorController extends Controller
 
         return view('admin.ofreproveedor.edit', [
             'ofreproveedor' => $ofreproveedor,
-        ]);
+        ])->with('proveedores', Proveedor::all())
+            ->with('productos', Producto::all());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateOfreproveedor $request
-     * @param  Ofreproveedor $ofreproveedor
+     * @param UpdateOfreproveedor $request
+     * @param Ofreproveedor $ofreproveedor
      * @return Response|array
      */
     public function update(UpdateOfreproveedor $request, Ofreproveedor $ofreproveedor)
@@ -129,8 +133,8 @@ class OfreproveedorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DestroyOfreproveedor $request
-     * @param  Ofreproveedor $ofreproveedor
+     * @param DestroyOfreproveedor $request
+     * @param Ofreproveedor $ofreproveedor
      * @return Response|bool
      * @throws \Exception
      */
@@ -145,4 +149,4 @@ class OfreproveedorController extends Controller
         return redirect()->back();
     }
 
-    }
+}

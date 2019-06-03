@@ -10,7 +10,7 @@ class Ofreproveedor extends Model
         "descuento",
         "estado",
         "identificacion",
-        "insumo_id",
+        "producto_id",
         "precio",
         "proveedor_id",
         "unidad",
@@ -36,5 +36,15 @@ class Ofreproveedor extends Model
         return url('/admin/ofreproveedors/'.$this->getKey());
     }
 
+
+    public function proveedor()
+    {
+        return $this->hasOne(Proveedor::class, 'id', 'proveedor_id');
+    }
+
+    public function producto()
+    {
+        return $this->hasOne(Producto::class, 'id', 'producto_id');
+    }
     
 }

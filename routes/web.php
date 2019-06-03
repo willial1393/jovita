@@ -240,3 +240,14 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::post('/admin/facturaventa/{facturaventum}', 'Admin\FacturaventaController@update')->name('admin/facturaventa/update');
     Route::delete('/admin/facturaventa/{facturaventum}', 'Admin\FacturaventaController@destroy')->name('admin/facturaventa/destroy');
 });
+
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(function () {
+    Route::get('/admin/ofreproveedors', 'Admin\OfreproveedorController@index');
+    Route::get('/admin/ofreproveedors/create', 'Admin\OfreproveedorController@create');
+    Route::post('/admin/ofreproveedors', 'Admin\OfreproveedorController@store');
+    Route::get('/admin/ofreproveedors/{ofreproveedor}/edit', 'Admin\OfreproveedorController@edit')->name('admin/ofreproveedors/edit');
+    Route::post('/admin/ofreproveedors/{ofreproveedor}', 'Admin\OfreproveedorController@update')->name('admin/ofreproveedors/update');
+    Route::delete('/admin/ofreproveedors/{ofreproveedor}', 'Admin\OfreproveedorController@destroy')->name('admin/ofreproveedors/destroy');
+});

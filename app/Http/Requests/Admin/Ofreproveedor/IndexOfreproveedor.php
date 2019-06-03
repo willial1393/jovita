@@ -23,7 +23,7 @@ class IndexOfreproveedor extends FormRequest
     public function rules()
     {
         return [
-            'orderBy' => 'in:descuento,estado,id,identificacion,insumo_id,precio,proveedor_id,unidad|nullable',
+            'orderBy' => 'in:descuento,estado,id,identificacion,precio,producto_id,proveedor_id,unidad|nullable',
             'orderDirection' => 'in:asc,desc|nullable',
             'search' => 'string|nullable',
             'page' => 'integer|nullable',

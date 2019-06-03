@@ -27,8 +27,8 @@ class StoreOfreproveedor extends FormRequest
             'descuento' => ['nullable', 'integer'],
             'estado' => ['nullable', 'string'],
             'identificacion' => ['required', Rule::unique('ofreproveedor', 'identificacion'), 'integer'],
-            'insumo_id' => ['required', 'integer'],
             'precio' => ['nullable', 'integer'],
+            'producto_id' => ['required', 'integer'],
             'proveedor_id' => ['required', 'integer'],
             'unidad' => ['nullable', 'string'],
             

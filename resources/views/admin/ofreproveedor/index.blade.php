@@ -48,9 +48,9 @@
                                     <th is='sortable' :column="'estado'">{{ trans('admin.ofreproveedor.columns.estado') }}</th>
                                     <th is='sortable'
                                         :column="'identificacion'">{{ trans('admin.ofreproveedor.columns.identificacion') }}</th>
-                                    <th is='sortable'
-                                        :column="'insumo_id'">{{ trans('admin.ofreproveedor.columns.insumo_id') }}</th>
                                     <th is='sortable' :column="'precio'">{{ trans('admin.ofreproveedor.columns.precio') }}</th>
+                                    <th is='sortable'
+                                        :column="'producto_id'">{{ trans('admin.ofreproveedor.columns.producto_id') }}</th>
                                     <th is='sortable' :column="'proveedor_id'">{{ trans('admin.ofreproveedor.columns.proveedor_id') }}</th>
                                     <th is='sortable'
                                         :column="'unidad'">{{ trans('admin.ofreproveedor.columns.unidad') }}</th>
@@ -64,9 +64,9 @@
                                     <td>@{{ item.descuento }}</td>
                                     <td>@{{ item.estado }}</td>
                                     <td>@{{ item.identificacion }}</td>
-                                    <td>@{{ item.insumo_id }}</td>
                                     <td>@{{ item.precio }}</td>
-                                    <td>@{{ item.proveedor_id }}</td>
+                                    <td>@{{ item.producto.nombre }}</td>
+                                    <td>@{{ item.proveedor.empresa }}</td>
                                     <td>@{{ item.unidad }}</td>
                                     
                                     <td>

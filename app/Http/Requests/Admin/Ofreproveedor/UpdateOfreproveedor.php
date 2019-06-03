@@ -27,8 +27,8 @@ class UpdateOfreproveedor extends FormRequest
             'descuento' => ['nullable', 'integer'],
             'estado' => ['nullable', 'string'],
             'identificacion' => ['sometimes', Rule::unique('ofreproveedor', 'identificacion')->ignore($this->ofreproveedor->getKey(), $this->ofreproveedor->getKeyName()), 'integer'],
-            'insumo_id' => ['sometimes', 'integer'],
             'precio' => ['nullable', 'integer'],
+            'producto_id' => ['sometimes', 'integer'],
             'proveedor_id' => ['sometimes', 'integer'],
             'unidad' => ['nullable', 'string'],
             

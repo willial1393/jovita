@@ -275,3 +275,18 @@ $factory->define(App\Models\Facturaventum::class, function (Faker\Generator $fak
     ];
 });
 
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Ofreproveedor::class, function (Faker\Generator $faker) {
+    return [
+        'descuento' => $faker->randomNumber(5),
+        'estado' => $faker->sentence,
+        'identificacion' => $faker->randomNumber(5),
+        'precio' => $faker->randomNumber(5),
+        'producto_id' => $faker->randomNumber(5),
+        'proveedor_id' => $faker->randomNumber(5),
+        'unidad' => $faker->sentence,
+
+
+    ];
+});
+
