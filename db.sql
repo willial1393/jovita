@@ -100,7 +100,8 @@ VALUES (1, 'Administrator', 'Administrator', 'admin@admin.com',
 
 -- Volcando estructura para tabla jovita.cliente
 DROP TABLE IF EXISTS `cliente`;
-CREATE TABLE IF NOT EXISTS `cliente`(
+CREATE TABLE IF NOT EXISTS `cliente`
+(
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `documento` varchar(15) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Describe el numero del documento de cada cliente, el numero es unico e irrepetible. NIT O LA CEDULA',
   `tipoDocumento` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Puede ser cedula de extranjeria, pasaprte, cedula.',
@@ -163,28 +164,30 @@ CREATE TABLE IF NOT EXISTS `detalleventa` (
 
 -- Volcando estructura para tabla jovita.facturaventa
 DROP TABLE IF EXISTS `facturaventa`;
-CREATE TABLE IF NOT EXISTS `facturaventa`(
-                                             `id`             int(10) unsigned NOT NULL AUTO_INCREMENT,
-                                             `numero`         int(11)          NOT NULL COMMENT 'numero de la identificacion de la factura.',
-                                             `fecha`          date DEFAULT NULL COMMENT 'Describe la fecha en que se realizo la venta. ',
-                                             `estado`         varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Describe la situacion en el que esta la venta, pueden ser elaborado, enviado, aprobado, pagado, cerrado,en revision, corregido.',
-                                             `cliente_id`     int(10) unsigned NOT NULL,
-                                             `admin_users_id` int(10) unsigned NOT NULL,
-                                             PRIMARY KEY (`id`),
-                                             UNIQUE KEY `numero_UNIQUE` (`numero`),
-                                             KEY `fk_facturaVenta_cliente_idx` (`cliente_id`),
-                                             KEY `fk_facturaVenta_admin_users1_idx` (`admin_users_id`),
-                                             CONSTRAINT `fk_facturaVenta_admin_users1` FOREIGN KEY (`admin_users_id`) REFERENCES `admin_users` (`id`),
-                                             CONSTRAINT `fk_facturaVenta_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`)
+CREATE TABLE IF NOT EXISTS `facturaventa`
+(
+    `id`             int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `numero`         int(11)          NOT NULL COMMENT 'numero de la identificacion de la factura.',
+    `fecha`          date                                DEFAULT NULL COMMENT 'Describe la fecha en que se realizo la venta. ',
+    `estado`         varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Describe la situacion en el que esta la venta, pueden ser elaborado, enviado, aprobado, pagado, cerrado,en revision, corregido.',
+    `cliente_id`     int(10) unsigned NOT NULL,
+    `admin_users_id` int(10) unsigned NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `numero_UNIQUE` (`numero`),
+    KEY `fk_facturaVenta_cliente_idx` (`cliente_id`),
+    KEY `fk_facturaVenta_admin_users1_idx` (`admin_users_id`),
+    CONSTRAINT `fk_facturaVenta_admin_users1` FOREIGN KEY (`admin_users_id`) REFERENCES `admin_users` (`id`),
+    CONSTRAINT `fk_facturaVenta_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
+  AUTO_INCREMENT = 3
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
 -- Volcando datos para la tabla jovita.facturaventa: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `facturaventa` DISABLE KEYS */;
 INSERT INTO `facturaventa` (`id`, `numero`, `fecha`, `estado`, `cliente_id`, `admin_users_id`)
-VALUES (1, 235345, '2019-06-10', 'ACTIVO', 1, 1);
+VALUES (1, 235345, '2019-06-10', 'ACTIVO', 1, 1),
+       (2, 2353, '2019-06-03', 'ACTIVO', 1, 1);
 /*!40000 ALTER TABLE `facturaventa` ENABLE KEYS */;
 
 -- Volcando estructura para tabla jovita.media
@@ -221,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `migrations`
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 29
+  AUTO_INCREMENT = 30
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
@@ -255,7 +258,8 @@ VALUES (1, '2017_08_24_000000_create_activations_table', 1),
        (25, '2019_06_02_224205_fill_permissions_for_pedido', 18),
        (26, '2019_06_03_003814_fill_permissions_for_detallepedido', 19),
        (27, '2019_06_03_004447_fill_permissions_for_detallepedido', 20),
-       (28, '2019_06_03_004514_fill_permissions_for_detalleventum', 21);
+       (28, '2019_06_03_004514_fill_permissions_for_detalleventum', 21),
+       (29, '2019_06_03_013425_fill_permissions_for_ofreproveedor', 22);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla jovita.model_has_permissions
@@ -302,40 +306,49 @@ VALUES (1, 'Brackets\\AdminAuth\\Models\\AdminUser', 1),
 
 -- Volcando estructura para tabla jovita.ofreproveedor
 DROP TABLE IF EXISTS `ofreproveedor`;
-CREATE TABLE IF NOT EXISTS `ofreproveedor` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `identificacion` int(11) NOT NULL,
-  `descuento` int(11) DEFAULT NULL,
-  `estado` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `unidad` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `precio` int(11) DEFAULT NULL,
-  `proveedor_id` int(10) unsigned NOT NULL,
-  `insumo_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `identificacion_UNIQUE` (`identificacion`),
-  KEY `fk_ofreProveedor_proveedor1_idx` (`proveedor_id`),
-  CONSTRAINT `fk_ofreProveedor_proveedor1` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedor` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `ofreproveedor`(
+                                              `id`             int(10) unsigned NOT NULL AUTO_INCREMENT,
+                                              `identificacion` int(11)          NOT NULL,
+                                              `descuento`      int(11) DEFAULT NULL,
+                                              `estado`         varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+                                              `unidad`         varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+                                              `precio`         int(11) DEFAULT NULL,
+                                              `proveedor_id`   int(10) unsigned NOT NULL,
+                                              `producto_id`    int(10) unsigned NOT NULL,
+                                              PRIMARY KEY (`id`),
+                                              UNIQUE KEY `identificacion_UNIQUE` (`identificacion`),
+                                              KEY `fk_ofreProveedor_proveedor1_idx` (`proveedor_id`),
+                                              KEY `fk_ofreProveedor_producto1_idx` (`producto_id`),
+                                              CONSTRAINT `fk_ofreProveedor_producto1` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`),
+                                              CONSTRAINT `fk_ofreProveedor_proveedor1` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedor` (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 2
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
 
 -- Volcando datos para la tabla jovita.ofreproveedor: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `ofreproveedor` DISABLE KEYS */;
+INSERT INTO `ofreproveedor` (`id`, `identificacion`, `descuento`, `estado`, `unidad`, `precio`, `proveedor_id`,
+                             `producto_id`)
+VALUES (1, 1234, 1000, 'ACTIVO', 'Litro', 50000, 1, 1);
 /*!40000 ALTER TABLE `ofreproveedor` ENABLE KEYS */;
 
 -- Volcando estructura para tabla jovita.pedido
 DROP TABLE IF EXISTS `pedido`;
-CREATE TABLE IF NOT EXISTS `pedido`(
-                                       `id`             int(10) unsigned NOT NULL AUTO_INCREMENT,
-                                       `numeroPedido`   int(11)          NOT NULL COMMENT 'Describe la identificacion del pedido.',
-                                       `estado`         varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Describe la situacion en el que se encuentra el pedido. como: aprobado, revisado,enviado,corregido,cerrado.',
-                                       `fecha`          date DEFAULT NULL COMMENT 'Fecha en el cual se realizo el pedido.',
-                                       `proveedor_id`   int(10) unsigned NOT NULL,
-                                       `admin_users_id` int(10) unsigned NOT NULL,
-                                       PRIMARY KEY (`id`),
-                                       UNIQUE KEY `numeroPedido_UNIQUE` (`numeroPedido`),
-                                       KEY `fk_pedido_proveedor1_idx` (`proveedor_id`),
-                                       KEY `fk_pedido_admin_users1_idx` (`admin_users_id`),
-                                       CONSTRAINT `fk_pedido_admin_users1` FOREIGN KEY (`admin_users_id`) REFERENCES `admin_users` (`id`),
-                                       CONSTRAINT `fk_pedido_proveedor1` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedor` (`id`)
+CREATE TABLE IF NOT EXISTS `pedido`
+(
+    `id`             int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `numeroPedido`   int(11)          NOT NULL COMMENT 'Describe la identificacion del pedido.',
+    `estado`         varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Describe la situacion en el que se encuentra el pedido. como: aprobado, revisado,enviado,corregido,cerrado.',
+    `fecha`          date                                DEFAULT NULL COMMENT 'Fecha en el cual se realizo el pedido.',
+    `proveedor_id`   int(10) unsigned NOT NULL,
+    `admin_users_id` int(10) unsigned NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `numeroPedido_UNIQUE` (`numeroPedido`),
+    KEY `fk_pedido_proveedor1_idx` (`proveedor_id`),
+    KEY `fk_pedido_admin_users1_idx` (`admin_users_id`),
+    CONSTRAINT `fk_pedido_admin_users1` FOREIGN KEY (`admin_users_id`) REFERENCES `admin_users` (`id`),
+    CONSTRAINT `fk_pedido_proveedor1` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedor` (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8
@@ -641,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `translations`
   KEY `translations_namespace_index` (`namespace`),
   KEY `translations_group_index` (`group`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 176
+  AUTO_INCREMENT = 177
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
@@ -651,399 +664,402 @@ INSERT INTO `translations` (`id`, `namespace`, `group`, `key`, `text`, `metadata
                             `deleted_at`)
 VALUES (1, 'brackets/admin-ui', 'admin', 'operation.succeeded', '{
   "en": "Operación exitosa"
-}', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+}', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (2, 'brackets/admin-ui', 'admin', 'operation.failed', '{
          "en": "Operación fallida"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (3, 'brackets/admin-ui', 'admin', 'operation.not_allowed', '{
          "en": "Operación no permitida"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (4, '*', 'admin', 'admin-user.columns.first_name', '{
          "en": "Nombres"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (5, '*', 'admin', 'admin-user.columns.last_name', '{
          "en": "Apellidos"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
-       (6, '*', 'admin', 'admin-user.columns.email', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
+       (6, '*', 'admin', 'admin-user.columns.email', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (7, '*', 'admin', 'admin-user.columns.password', '{
          "en": "Contraseña"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (8, '*', 'admin', 'admin-user.columns.password_repeat', '{
          "en": "Confirmar contraseña"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (9, '*', 'admin', 'admin-user.columns.activated', '{
          "en": "Activado"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (10, '*', 'admin', 'admin-user.columns.forbidden', '{
          "en": "Olvidar"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (11, '*', 'admin', 'admin-user.columns.language', '{
          "en": "Lenguaje"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (12, 'brackets/admin-ui', 'admin', 'forms.select_an_option', '{
          "en": "Seleccionar una opción"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
-       (13, '*', 'admin', 'admin-user.columns.roles', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
+       (13, '*', 'admin', 'admin-user.columns.roles', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (14, 'brackets/admin-ui', 'admin', 'forms.select_options', '{
          "en": "Seleccionar opciones"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (15, '*', 'admin', 'admin-user.actions.create', '{
          "en": "Nuevo usuario"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (16, 'brackets/admin-ui', 'admin', 'btn.save', '{
          "en": "Guardar"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (17, '*', 'admin', 'admin-user.actions.edit', '{
          "en": "Editar usuario"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (18, '*', 'admin', 'admin-user.actions.index', '{
          "en": "Usuarios"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (19, 'brackets/admin-ui', 'admin', 'placeholder.search', '{
          "en": "Buscar"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (20, 'brackets/admin-ui', 'admin', 'btn.search', '{
          "en": "Buscar"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
-       (21, '*', 'admin', 'admin-user.columns.id', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
+       (21, '*', 'admin', 'admin-user.columns.id', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (22, 'brackets/admin-ui', 'admin', 'btn.edit', '{
          "en": "Editar"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (23, 'brackets/admin-ui', 'admin', 'btn.delete', '{
          "en": "Eliminar"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (24, 'brackets/admin-ui', 'admin', 'pagination.overview', '{
          "en": "Mostrando de {{ pagination.state.from }} a {{ pagination.state.to }} items de un total de {{ pagination.state.total }} items."
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (25, 'brackets/admin-ui', 'admin', 'index.no_items', '{
          "en": "No se pudo encontrar ningún item"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (26, 'brackets/admin-ui', 'admin', 'index.try_changing_items', '{
          "en": "Intenta cambiar los filtros o añadir uno nuevo"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (27, 'brackets/admin-ui', 'admin', 'btn.new', '{
          "en": "Nuevo"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (28, 'brackets/admin-ui', 'admin', 'profile_dropdown.account', '{
          "en": "Cuenta"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (29, 'brackets/admin-auth', 'admin', 'profile_dropdown.logout', '{
          "en": "Cerrar sesión"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (30, 'brackets/admin-ui', 'admin', 'sidebar.content', '{
          "en": "Menu"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (31, 'brackets/admin-ui', 'admin', 'sidebar.settings', '{
          "en": "Configuración"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (32, '*', 'admin', 'admin-user.actions.edit_password', '{
          "en": "Editar contraseña"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (33, '*', 'admin', 'admin-user.actions.edit_profile', '{
          "en": "Editar perfil"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (34, 'brackets/admin-auth', 'activations', 'email.line', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (35, 'brackets/admin-auth', 'activations', 'email.action', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (36, 'brackets/admin-auth', 'activations', 'email.notRequested', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (37, 'brackets/admin-auth', 'admin', 'activations.activated', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (38, 'brackets/admin-auth', 'admin', 'activations.invalid_request', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (39, 'brackets/admin-auth', 'admin', 'activations.disabled', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (40, 'brackets/admin-auth', 'admin', 'activations.sent', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
-       (41, 'brackets/admin-auth', 'admin', 'passwords.sent', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53',
+        '2019-06-03 01:35:13', NULL),
+       (41, 'brackets/admin-auth', 'admin', 'passwords.sent', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13',
         NULL),
-       (42, 'brackets/admin-auth', 'admin', 'passwords.reset', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53',
+       (42, 'brackets/admin-auth', 'admin', 'passwords.reset', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13',
         NULL),
        (43, 'brackets/admin-auth', 'admin', 'passwords.invalid_token', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (44, 'brackets/admin-auth', 'admin', 'passwords.invalid_user', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (45, 'brackets/admin-auth', 'admin', 'passwords.invalid_password', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (46, 'brackets/admin-auth', 'admin', 'activation_form.title', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (47, 'brackets/admin-auth', 'admin', 'activation_form.note', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (48, 'brackets/admin-auth', 'admin', 'auth_global.email', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (49, 'brackets/admin-auth', 'admin', 'activation_form.button', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (50, 'brackets/admin-auth', 'admin', 'login.title', '{
          "en": "Ingresar"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (51, 'brackets/admin-auth', 'admin', 'login.sign_in_text', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (52, 'brackets/admin-auth', 'admin', 'auth_global.password', '{
          "en": "Contraseña"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (53, 'brackets/admin-auth', 'admin', 'login.button', '{
          "en": "Ingresar"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (54, 'brackets/admin-auth', 'admin', 'login.forgot_password', '{
          "en": "Olvido su contraseña?"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (55, 'brackets/admin-auth', 'admin', 'forgot_password.title', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (56, 'brackets/admin-auth', 'admin', 'forgot_password.note', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (57, 'brackets/admin-auth', 'admin', 'forgot_password.button', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (58, 'brackets/admin-auth', 'admin', 'password_reset.title', '{
          "en": "Restaurar contraseña"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (59, 'brackets/admin-auth', 'admin', 'password_reset.note', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (60, 'brackets/admin-auth', 'admin', 'auth_global.password_confirm', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (61, 'brackets/admin-auth', 'admin', 'password_reset.button', '[]', NULL, '2019-05-31 18:47:09',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (62, '*', '*', 'Manage access', '{
          "en": "Usuarios"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
        (63, '*', '*', 'Translations', '{
          "en": "Diccionario"
-       }', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
-       (64, '*', '*', 'Configuration', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 00:48:53', NULL),
-       (65, '*', 'admin', 'cliente.columns.documento', '[]', NULL, '2019-05-31 20:30:35', '2019-06-03 00:48:53', NULL),
-       (66, '*', 'admin', 'cliente.columns.tipoDocumento', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
+       (64, '*', '*', 'Configuration', '[]', NULL, '2019-05-31 18:47:09', '2019-06-03 01:35:13', NULL),
+       (65, '*', 'admin', 'cliente.columns.documento', '[]', NULL, '2019-05-31 20:30:35', '2019-06-03 01:35:13', NULL),
+       (66, '*', 'admin', 'cliente.columns.tipoDocumento', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
-       (67, '*', 'admin', 'cliente.columns.nombre', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (68, '*', 'admin', 'cliente.columns.telefono', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (69, '*', 'admin', 'cliente.columns.correo', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       (67, '*', 'admin', 'cliente.columns.nombre', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (68, '*', 'admin', 'cliente.columns.telefono', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (69, '*', 'admin', 'cliente.columns.correo', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (70, '*', 'admin', 'cliente.actions.create', '{
          "en": "Nuevo cliente"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (71, '*', 'admin', 'cliente.actions.edit', '{
          "en": "Editar cliente"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (72, '*', 'admin', 'cliente.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (73, '*', 'admin', 'cliente.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (72, '*', 'admin', 'cliente.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (73, '*', 'admin', 'cliente.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (74, '*', 'admin', 'detallepedido.columns.consecutivo', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
         '2019-06-03 00:48:53'),
-       (75, '*', 'admin', 'detallepedido.columns.cantidad', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       (75, '*', 'admin', 'detallepedido.columns.cantidad', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (76, '*', 'admin', 'detallepedido.columns.valorTotal', '{
          "en": "Valor total"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (77, '*', 'admin', 'detallepedido.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (77, '*', 'admin', 'detallepedido.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
-       (78, '*', 'admin', 'detallepedido.columns.pedido_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       (78, '*', 'admin', 'detallepedido.columns.pedido_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (79, '*', 'admin', 'detallepedido.columns.producto_codigo', '{
          "en": "Producto código"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (80, '*', 'admin', 'detallepedido.actions.create', '{
          "en": "Nuevo detalle pedido"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (81, '*', 'admin', 'detallepedido.actions.edit', '{
          "en": "Editar detalle pedido"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (82, '*', 'admin', 'detallepedido.actions.index', '{
          "en": "Detalle pedido"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (83, '*', 'admin', 'detallepedido.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (83, '*', 'admin', 'detallepedido.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (84, '*', 'admin', 'detalleventum.columns.consecutivo', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
         '2019-06-03 00:48:53'),
        (85, '*', 'admin', 'detalleventum.columns.totalVenta', '{
          "en": "Total Venta"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (86, '*', 'admin', 'detalleventum.columns.cantidad', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (86, '*', 'admin', 'detalleventum.columns.cantidad', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (87, '*', 'admin', 'detalleventum.columns.PrecioUnidad', '{
          "en": "Precio Unidad"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (88, '*', 'admin', 'detalleventum.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (88, '*', 'admin', 'detalleventum.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (89, '*', 'admin', 'detalleventum.columns.facturaVenta_id', '{
          "en": "Factura de Venta"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (90, '*', 'admin', 'detalleventum.columns.producto_codigo', '[]', NULL, '2019-05-31 20:30:36',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (91, '*', 'admin', 'detalleventum.actions.create', '{
          "en": "Nuevo detalle de venta"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (92, '*', 'admin', 'detalleventum.actions.edit', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (92, '*', 'admin', 'detalleventum.actions.edit', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (93, '*', 'admin', 'detalleventum.actions.index', '{
          "en": "Detalle de venta"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (94, '*', 'admin', 'detalleventum.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (94, '*', 'admin', 'detalleventum.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (95, '*', 'admin', 'facturaventum.columns.numero', '{
          "en": "Número"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (96, '*', 'admin', 'facturaventum.columns.fecha', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (96, '*', 'admin', 'facturaventum.columns.fecha', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (97, 'brackets/admin-ui', 'admin', 'forms.select_a_date', '[]', NULL, '2019-05-31 20:30:36',
-        '2019-06-03 00:48:53', NULL),
-       (98, '*', 'admin', 'facturaventum.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+        '2019-06-03 01:35:13', NULL),
+       (98, '*', 'admin', 'facturaventum.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
-       (99, '*', 'admin', 'facturaventum.columns.cliente_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       (99, '*', 'admin', 'facturaventum.columns.cliente_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (100, '*', 'admin', 'facturaventum.columns.usuario_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-02 22:44:32',
         '2019-06-02 22:44:32'),
        (101, '*', 'admin', 'facturaventum.actions.create', '{
          "en": "Nueva factura"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (102, '*', 'admin', 'facturaventum.actions.edit', '{
          "en": "Editar factura"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (103, '*', 'admin', 'facturaventum.actions.index', '{
          "en": "Factura de venta"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (104, '*', 'admin', 'facturaventum.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (105, '*', 'admin', 'cliente.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (104, '*', 'admin', 'facturaventum.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (105, '*', 'admin', 'cliente.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (106, '*', 'admin', 'detallepedido.title', '{
          "en": "Detalle pedido"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (107, '*', 'admin', 'detalleventum.title', '{
          "en": "Detalle de venta"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (108, '*', 'admin', 'facturaventum.title', '{
          "en": "Factura de venta"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (109, '*', 'admin', 'ofreproveedor.title', '{
          "en": "Ofertas proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (110, '*', 'admin', 'pedido.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (111, '*', 'admin', 'producto.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (110, '*', 'admin', 'pedido.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (111, '*', 'admin', 'producto.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (112, '*', 'admin', 'productoproveedor.title', '{
          "en": "Productos del proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (113, '*', 'admin', 'proveedor.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (114, '*', 'admin', 'role.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (113, '*', 'admin', 'proveedor.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (114, '*', 'admin', 'role.title', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (115, '*', 'admin', 'ofreproveedor.columns.identificacion', '{
          "en": "Identificación"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (116, '*', 'admin', 'ofreproveedor.columns.descuento', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (116, '*', 'admin', 'ofreproveedor.columns.descuento', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
-       (117, '*', 'admin', 'ofreproveedor.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       (117, '*', 'admin', 'ofreproveedor.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
-       (118, '*', 'admin', 'ofreproveedor.columns.unidad', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       (118, '*', 'admin', 'ofreproveedor.columns.unidad', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
-       (119, '*', 'admin', 'ofreproveedor.columns.precio', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       (119, '*', 'admin', 'ofreproveedor.columns.precio', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (120, '*', 'admin', 'ofreproveedor.columns.proveedor_id', '[]', NULL, '2019-05-31 20:30:36',
-        '2019-06-03 00:48:53', NULL),
-       (121, '*', 'admin', 'ofreproveedor.columns.insumo_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
-        NULL),
+        '2019-06-03 01:35:13', NULL),
+       (121, '*', 'admin', 'ofreproveedor.columns.insumo_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
+        '2019-06-03 01:35:13'),
        (122, '*', 'admin', 'ofreproveedor.actions.create', '{
          "en": "Nueva oferta proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (123, '*', 'admin', 'ofreproveedor.actions.edit', '{
          "en": "Editar proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (124, '*', 'admin', 'ofreproveedor.actions.index', '{
          "en": "Ofertas proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (125, '*', 'admin', 'ofreproveedor.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (125, '*', 'admin', 'ofreproveedor.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (126, '*', 'admin', 'pedido.columns.numeroPedido', '{
          "en": "Número de pedido"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (127, '*', 'admin', 'pedido.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (128, '*', 'admin', 'pedido.columns.fecha', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (129, '*', 'admin', 'pedido.columns.proveedor_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (127, '*', 'admin', 'pedido.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (128, '*', 'admin', 'pedido.columns.fecha', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (129, '*', 'admin', 'pedido.columns.proveedor_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (130, '*', 'admin', 'pedido.columns.usuario_id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-02 22:44:32',
         '2019-06-02 22:44:32'),
        (131, '*', 'admin', 'pedido.actions.create', '{
          "en": "Nuevo pedido"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (132, '*', 'admin', 'pedido.actions.edit', '{
          "en": "Editar pedido"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (133, '*', 'admin', 'pedido.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (134, '*', 'admin', 'pedido.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (133, '*', 'admin', 'pedido.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (134, '*', 'admin', 'pedido.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (135, '*', 'admin', 'producto.columns.codigo', '{
          "en": "Código"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (136, '*', 'admin', 'producto.columns.nombre', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (137, '*', 'admin', 'producto.columns.unidad', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (136, '*', 'admin', 'producto.columns.nombre', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (137, '*', 'admin', 'producto.columns.unidad', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (138, '*', 'admin', 'producto.columns.precioP', '{
          "en": "Precio"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (139, '*', 'admin', 'producto.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (140, '*', 'admin', 'producto.columns.existencia', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (139, '*', 'admin', 'producto.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (140, '*', 'admin', 'producto.columns.existencia', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
-       (141, '*', 'admin', 'producto.columns.tipo', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       (141, '*', 'admin', 'producto.columns.tipo', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (142, '*', 'admin', 'producto.actions.create', '{
          "en": "Nuevo producto"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (143, '*', 'admin', 'producto.actions.edit', '{
          "en": "Editar producto"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (144, '*', 'admin', 'producto.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (145, '*', 'admin', 'producto.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (144, '*', 'admin', 'producto.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (145, '*', 'admin', 'producto.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (146, '*', 'admin', 'productoproveedor.columns.producto_id', '[]', NULL, '2019-05-31 20:30:36',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (147, '*', 'admin', 'productoproveedor.columns.ofreProveedor_id', '{
          "en": "Oferta proveedor"
        }', NULL, '2019-05-31 20:30:36', '2019-06-02 22:07:19', '2019-06-02 22:07:19'),
        (148, '*', 'admin', 'productoproveedor.actions.create', '{
          "en": "Nuevo producto proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (149, '*', 'admin', 'productoproveedor.actions.edit', '{
          "en": "Editar producto proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (150, '*', 'admin', 'productoproveedor.actions.index', '{
          "en": "Producto proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (151, '*', 'admin', 'productoproveedor.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (151, '*', 'admin', 'productoproveedor.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
        (152, '*', 'admin', 'proveedor.columns.codigo', '{
          "en": "Código"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (153, '*', 'admin', 'proveedor.columns.empresa', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (154, '*', 'admin', 'proveedor.columns.representante', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53',
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (153, '*', 'admin', 'proveedor.columns.empresa', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (154, '*', 'admin', 'proveedor.columns.representante', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13',
         NULL),
-       (155, '*', 'admin', 'proveedor.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       (155, '*', 'admin', 'proveedor.columns.estado', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (156, '*', 'admin', 'proveedor.actions.create', '{
          "en": "Nuevo proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (157, '*', 'admin', 'proveedor.actions.edit', '{
          "en": "Editar proveedor"
-       }', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (158, '*', 'admin', 'proveedor.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (159, '*', 'admin', 'proveedor.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (160, '*', 'admin', 'role.columns.name', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (161, '*', 'admin', 'role.columns.guard_name', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (162, '*', 'admin', 'role.actions.create', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (163, '*', 'admin', 'role.actions.edit', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (164, '*', 'admin', 'role.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
-       (165, '*', 'admin', 'role.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (158, '*', 'admin', 'proveedor.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (159, '*', 'admin', 'proveedor.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (160, '*', 'admin', 'role.columns.name', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (161, '*', 'admin', 'role.columns.guard_name', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (162, '*', 'admin', 'role.actions.create', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (163, '*', 'admin', 'role.actions.edit', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (164, '*', 'admin', 'role.actions.index', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
+       (165, '*', 'admin', 'role.columns.id', '[]', NULL, '2019-05-31 20:30:36', '2019-06-03 01:35:13', NULL),
        (166, '*', 'admin', 'model-has-permission.title', '{
          "en": "Permisos"
-       }', NULL, '2019-06-01 03:27:53', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-06-01 03:27:53', '2019-06-03 01:35:13', NULL),
        (167, '*', 'admin', 'model-has-permission.columns.permission_id', '{
          "en": "Persimo"
-       }', NULL, '2019-06-01 03:27:53', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-06-01 03:27:53', '2019-06-03 01:35:13', NULL),
        (168, '*', 'admin', 'model-has-permission.columns.model_type', '[]', NULL, '2019-06-01 03:27:53',
-        '2019-06-03 00:48:53', NULL),
+        '2019-06-03 01:35:13', NULL),
        (169, '*', 'admin', 'model-has-permission.columns.model_id', '{
          "en": "Rol"
-       }', NULL, '2019-06-01 03:27:53', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-06-01 03:27:53', '2019-06-03 01:35:13', NULL),
        (170, '*', 'admin', 'model-has-permission.actions.create', '{
          "en": "Nuevo permiso"
-       }', NULL, '2019-06-01 03:27:53', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-06-01 03:27:53', '2019-06-03 01:35:13', NULL),
        (171, '*', 'admin', 'model-has-permission.actions.edit', '{
          "en": "Editar :name"
-       }', NULL, '2019-06-01 03:27:53', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-06-01 03:27:53', '2019-06-03 01:35:13', NULL),
        (172, '*', 'admin', 'model-has-permission.actions.index', '{
          "en": "Permisos"
-       }', NULL, '2019-06-01 03:27:53', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-06-01 03:27:53', '2019-06-03 01:35:13', NULL),
        (173, '*', 'admin', 'productoproveedor.columns.proveedor_id', '{
          "en": "Proveedor"
-       }', NULL, '2019-06-02 22:07:19', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-06-02 22:07:19', '2019-06-03 01:35:13', NULL),
        (174, '*', 'admin', 'facturaventum.columns.admin_users_id', '{
          "en": "Usuario"
-       }', NULL, '2019-06-02 22:44:32', '2019-06-03 00:48:53', NULL),
+       }', NULL, '2019-06-02 22:44:32', '2019-06-03 01:35:13', NULL),
        (175, '*', 'admin', 'pedido.columns.admin_users_id', '{
          "en": "Usuario"
-       }', NULL, '2019-06-02 22:44:32', '2019-06-03 00:48:53', NULL);
+       }', NULL, '2019-06-02 22:44:32', '2019-06-03 01:35:13', NULL),
+       (176, '*', 'admin', 'ofreproveedor.columns.producto_id', '{
+         "en": "Insumo"
+       }', NULL, '2019-06-03 01:35:13', '2019-06-03 01:35:30', NULL);
 /*!40000 ALTER TABLE `translations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla jovita.wysiwyg_media
