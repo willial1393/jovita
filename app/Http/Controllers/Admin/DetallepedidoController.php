@@ -6,8 +6,10 @@ use App\Http\Requests\Admin\Detallepedido\IndexDetallepedido;
 use App\Http\Requests\Admin\Detallepedido\StoreDetallepedido;
 use App\Http\Requests\Admin\Detallepedido\UpdateDetallepedido;
 use App\Models\Detallepedido;
-use Brackets\AdminListing\Facades\AdminListing;
+use App\Models\Pedido;
+use App\Models\Producto;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class DetallepedidoController extends Controller
 {
@@ -20,23 +22,22 @@ class DetallepedidoController extends Controller
      */
     public function index(IndexDetallepedido $request)
     {
-        // create and AdminListing instance for a specific model and
-        $data = AdminListing::create(Detallepedido::class)->processRequestAndGet(
-            // pass the request with params
-            $request,
+        $detallePedido = Detallepedido::with('pedido')
+            ->with('producto')
+            ->get();
 
-            // set columns to query
-            ['cantidad', 'estado', 'id', 'pedido_id', 'producto_codigo', 'valorTotal'],
+        if ($request->has('search')) {
+            $pedido = Pedido::where('numeroPedido', 'like', '%' . $request->search . '%')->first();
+            $detallePedido = $detallePedido->where('pedido_id', $pedido->id)->all();
+        }
+        $paginator = new LengthAwarePaginator($detallePedido, count($detallePedido), 10, 1);
 
-            // set columns to searchIn
-            ['estado', 'id']
-        );
 
         if ($request->ajax()) {
-            return ['data' => $data];
+            return ['data' => $paginator];
         }
 
-        return view('admin.detallepedido.index', ['data' => $data]);
+        return view('admin.detallepedido.index', ['data' => $paginator]);
 
     }
 
@@ -50,7 +51,9 @@ class DetallepedidoController extends Controller
     {
         $this->authorize('admin.detallepedido.create');
 
-        return view('admin.detallepedido.create');
+        return view('admin.detallepedido.create')
+            ->with('pedidos', Pedido::all())
+            ->with('productos', Producto::all());
     }
 
     /**
@@ -101,7 +104,8 @@ class DetallepedidoController extends Controller
 
         return view('admin.detallepedido.edit', [
             'detallepedido' => $detallepedido,
-        ]);
+        ])->with('pedidos', Pedido::all())
+            ->with('productos', Producto::all());
     }
 
     /**

@@ -34,5 +34,13 @@ class Detallepedido extends Model
         return url('/admin/detallepedidos/'.$this->getKey());
     }
 
-    
+    public function pedido()
+    {
+        return $this->hasOne(Pedido::class, 'id', 'pedido_id');
+    }
+
+    public function producto()
+    {
+        return $this->hasOne(Producto::class, 'id', 'producto_codigo');
+    }
 }

@@ -6,8 +6,10 @@ use App\Http\Requests\Admin\Detalleventum\IndexDetalleventum;
 use App\Http\Requests\Admin\Detalleventum\StoreDetalleventum;
 use App\Http\Requests\Admin\Detalleventum\UpdateDetalleventum;
 use App\Models\Detalleventum;
-use Brackets\AdminListing\Facades\AdminListing;
+use App\Models\Facturaventum;
+use App\Models\Producto;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class DetalleventaController extends Controller
 {
@@ -20,23 +22,22 @@ class DetalleventaController extends Controller
      */
     public function index(IndexDetalleventum $request)
     {
-        // create and AdminListing instance for a specific model and
-        $data = AdminListing::create(Detalleventum::class)->processRequestAndGet(
-            // pass the request with params
-            $request,
+        $detalleFactura = Detalleventum::with('factura')
+            ->with('producto')
+            ->get();
 
-            // set columns to query
-            ['cantidad', 'estado', 'facturaVenta_id', 'id', 'PrecioUnidad', 'producto_codigo', 'totalVenta'],
+        if ($request->has('search')) {
+            $factura = Facturaventum::where('numero', 'like', '%' . $request->search . '%')->first();
+            $detalleFactura = $detalleFactura->where('facturaVenta_id', $factura->id)->all();
+        }
+        $paginator = new LengthAwarePaginator($detalleFactura, count($detalleFactura), 10, 1);
 
-            // set columns to searchIn
-            ['estado', 'id']
-        );
 
         if ($request->ajax()) {
-            return ['data' => $data];
+            return ['data' => $paginator];
         }
 
-        return view('admin.detalleventum.index', ['data' => $data]);
+        return view('admin.detalleventum.index', ['data' => $paginator]);
 
     }
 
@@ -50,7 +51,9 @@ class DetalleventaController extends Controller
     {
         $this->authorize('admin.detalleventum.create');
 
-        return view('admin.detalleventum.create');
+        return view('admin.detalleventum.create')
+            ->with('facturas', Facturaventum::all())
+            ->with('productos', Producto::all());
     }
 
     /**
@@ -101,7 +104,8 @@ class DetalleventaController extends Controller
 
         return view('admin.detalleventum.edit', [
             'detalleventum' => $detalleventum,
-        ]);
+        ])->with('facturas', Facturaventum::all())
+            ->with('productos', Producto::all());
     }
 
     /**

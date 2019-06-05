@@ -61,9 +61,9 @@
                                     <td>@{{ item.id }}</td>
                                     <td>@{{ item.cantidad }}</td>
                                     <td>@{{ item.estado }}</td>
-                                    <td>@{{ item.facturaVenta_id }}</td>
+                                    <td>@{{ item.factura.numero }}</td>
                                     <td>@{{ item.PrecioUnidad }}</td>
-                                    <td>@{{ item.producto_codigo }}</td>
+                                    <td>@{{ item.producto.codigo }}</td>
                                     <td>@{{ item.totalVenta }}</td>
                                     
                                     <td>

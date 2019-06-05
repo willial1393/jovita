@@ -35,5 +35,13 @@ class Detalleventum extends Model
         return url('/admin/detalleventa/'.$this->getKey());
     }
 
-    
+    public function factura()
+    {
+        return $this->hasOne(Facturaventum::class, 'id', 'facturaVenta_id');
+    }
+
+    public function producto()
+    {
+        return $this->hasOne(Producto::class, 'id', 'producto_codigo');
+    }
 }

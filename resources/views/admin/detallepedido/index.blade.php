@@ -59,8 +59,8 @@
                                     <td>@{{ item.id }}</td>
                                     <td>@{{ item.cantidad }}</td>
                                     <td>@{{ item.estado }}</td>
-                                    <td>@{{ item.pedido_id }}</td>
-                                    <td>@{{ item.producto_codigo }}</td>
+                                    <td>@{{ item.pedido.numeroPedido }}</td>
+                                    <td>@{{ item.producto.codigo }}</td>
                                     <td>@{{ item.valorTotal }}</td>
                                     
                                     <td>
