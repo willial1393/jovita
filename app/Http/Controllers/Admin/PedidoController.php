@@ -5,6 +5,7 @@ use App\Http\Requests\Admin\Pedido\DestroyPedido;
 use App\Http\Requests\Admin\Pedido\IndexPedido;
 use App\Http\Requests\Admin\Pedido\StorePedido;
 use App\Http\Requests\Admin\Pedido\UpdatePedido;
+use App\Models\EstadoPedido;
 use App\Models\Pedido;
 use App\Models\Proveedor;
 use Brackets\AdminAuth\Models\AdminUser;
@@ -51,10 +52,13 @@ class PedidoController extends Controller
     {
         $pedido = new Pedido();
         $pedido->admin_users_id = Auth::id();
+        $pedido->estado = EstadoPedido::all()->first()->name;
+        $pedido->proveedor_id = Proveedor::all()->first()->id;
         $this->authorize('admin.pedido.create');
 
         return view('admin.pedido.create')
             ->with('pedido', $pedido)
+            ->with('estados', EstadoPedido::all())
             ->with('usuarios', AdminUser::get())
             ->with('proveedores', Proveedor::get());
     }
@@ -108,6 +112,7 @@ class PedidoController extends Controller
         return view('admin.pedido.edit', [
             'pedido' => $pedido,
         ])->with('usuarios', AdminUser::get())
+            ->with('estados', EstadoPedido::all())
             ->with('proveedores', Proveedor::get());
     }
 

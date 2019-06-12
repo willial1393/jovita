@@ -9,9 +9,9 @@
         <div class="card">
 
             <detalleventum-form
-                :action="'{{ url('admin/detalleventa') }}'"
-                
-                inline-template>
+                    :action="'{{ url('admin/detalleventa') }}'"
+                    :data="{{ $detalleventum->toJson() }}"
+                    inline-template>
 
                 <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="this.action" novalidate>
 

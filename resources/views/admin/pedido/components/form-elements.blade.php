@@ -20,9 +20,12 @@
     <label for="estado" class="col-form-label text-md-right"
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.pedido.columns.estado') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.estado" v-validate="''" @input="validate($event)" class="form-control"
-               :class="{'form-control-danger': errors.has('estado'), 'form-control-success': this.fields.estado && this.fields.estado.valid}"
-               id="estado" name="estado" placeholder="{{ trans('admin.pedido.columns.estado') }}">
+        <multiselect v-model="form.estado" placeholder="{{ trans('admin.pedido.columns.estado') }}"
+                     :allow-empty="false"
+                     :options="{{ $estados->toJson()}}.map(type => type.name)"
+                     :custom-label="opt => {{$estados->toJson()}}.find(x => x.name == opt).name"
+                     :close-on-select="true"
+                     open-direction="bottom"></multiselect>
         <div v-if="errors.has('estado')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('estado') }}
         </div>
     </div>
@@ -35,7 +38,8 @@
     <div :class="isFormLocalized ? 'col-md-4' : 'col-sm-8'">
         <div class="input-group input-group--custom">
             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-            <datetime v-model="form.fecha" :config="datePickerConfig" v-validate="'date_format:yyyy-MM-dd HH:mm:ss'"
+            <datetime v-model="form.fecha" :config="datePickerConfig"
+                      v-validate="'required|date_format:yyyy-MM-dd HH:mm:ss|after:afterTarget'"
                       class="flatpickr"
                       :class="{'form-control-danger': errors.has('fecha'), 'form-control-success': this.fields.fecha && this.fields.fecha.valid}"
                       id="fecha" name="fecha"
@@ -45,6 +49,9 @@
         </div>
     </div>
 </div>
+
+<input hidden name="after_field_target" ref="afterTarget" type="text"
+       value="{{$pedido->fecha?\Carbon\Carbon::parse($pedido->fecha)->subDay(1) :\Carbon\Carbon::now()->subDay(1)}}">
 
 <div class="form-group row align-items-center"
      :class="{'has-danger': errors.has('numeroPedido'), 'has-success': this.fields.numeroPedido && this.fields.numeroPedido.valid }">
