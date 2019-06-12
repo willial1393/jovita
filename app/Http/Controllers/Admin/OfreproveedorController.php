@@ -111,6 +111,7 @@ class OfreproveedorController extends Controller
         return view('admin.ofreproveedor.edit', [
             'ofreproveedor' => $ofreproveedor,
         ])->with('proveedores', Proveedor::all())
+            ->with('estados', EstadoOfertaProveedor::all())
             ->with('productos', Producto::all());
     }
 
