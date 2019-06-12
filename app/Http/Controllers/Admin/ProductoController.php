@@ -1,14 +1,15 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Admin\Producto\DestroyProducto;
 use App\Http\Requests\Admin\Producto\IndexProducto;
 use App\Http\Requests\Admin\Producto\StoreProducto;
 use App\Http\Requests\Admin\Producto\UpdateProducto;
-use App\Http\Requests\Admin\Producto\DestroyProducto;
-use Brackets\AdminListing\Facades\AdminListing;
+use App\Models\EstadoProductos;
 use App\Models\Producto;
+use App\Models\TiposProductos;
+use Brackets\AdminListing\Facades\AdminListing;
+use Illuminate\Http\Response;
 
 class ProductoController extends Controller
 {
@@ -16,14 +17,14 @@ class ProductoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexProducto $request
+     * @param IndexProducto $request
      * @return Response|array
      */
     public function index(IndexProducto $request)
     {
         // create and AdminListing instance for a specific model and
         $data = AdminListing::create(Producto::class)->processRequestAndGet(
-            // pass the request with params
+        // pass the request with params
             $request,
 
             // set columns to query
@@ -49,15 +50,21 @@ class ProductoController extends Controller
      */
     public function create()
     {
+        $producto = new Producto();
+        $producto->estado = EstadoProductos::all()->first()->name;
+        $producto->tipo = TiposProductos::all()->first()->name;
         $this->authorize('admin.producto.create');
 
-        return view('admin.producto.create');
+        return view('admin.producto.create')
+            ->with('producto', $producto)
+            ->with('estados', EstadoProductos::all())
+            ->with('tipos', TiposProductos::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreProducto $request
+     * @param StoreProducto $request
      * @return Response|array
      */
     public function store(StoreProducto $request)
@@ -67,7 +74,6 @@ class ProductoController extends Controller
 
         // Store the Producto
         $producto = Producto::create($sanitized);
-
         if ($request->ajax()) {
             return ['redirect' => url('admin/productos'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
         }
@@ -78,7 +84,7 @@ class ProductoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Producto $producto
+     * @param Producto $producto
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -92,7 +98,7 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Producto $producto
+     * @param Producto $producto
      * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -102,14 +108,15 @@ class ProductoController extends Controller
 
         return view('admin.producto.edit', [
             'producto' => $producto,
-        ]);
+        ])->with('estados', EstadoProductos::all())
+            ->with('tipos', TiposProductos::all());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateProducto $request
-     * @param  Producto $producto
+     * @param UpdateProducto $request
+     * @param Producto $producto
      * @return Response|array
      */
     public function update(UpdateProducto $request, Producto $producto)
@@ -130,8 +137,8 @@ class ProductoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DestroyProducto $request
-     * @param  Producto $producto
+     * @param DestroyProducto $request
+     * @param Producto $producto
      * @return Response|bool
      * @throws \Exception
      */
@@ -146,4 +153,4 @@ class ProductoController extends Controller
         return redirect()->back();
     }
 
-    }
+}

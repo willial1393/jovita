@@ -9,9 +9,9 @@
         <div class="card">
 
             <producto-form
-                :action="'{{ url('admin/productos') }}'"
-                
-                inline-template>
+                    :action="'{{ url('admin/productos') }}'"
+                    :data="{{ $producto->toJson() }}"
+                    inline-template>
 
                 <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="this.action" novalidate>
 

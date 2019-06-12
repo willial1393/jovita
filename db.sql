@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `cliente`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.cliente: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.cliente: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 INSERT INTO `cliente` (`id`, `documento`, `tipoDocumento`, `nombre`, `telefono`, `correo`)
 VALUES (1, '1252345435', 'CC', 'Prueba Cliente', '3115948080', 'cliente@gmail.com');
@@ -123,7 +123,8 @@ VALUES (1, '1252345435', 'CC', 'Prueba Cliente', '3115948080', 'cliente@gmail.co
 
 -- Volcando estructura para tabla jovita.detallepedido
 DROP TABLE IF EXISTS `detallepedido`;
-CREATE TABLE IF NOT EXISTS `detallepedido`(
+CREATE TABLE IF NOT EXISTS `detallepedido`
+(
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cantidad` int(11) DEFAULT NULL COMMENT 'Proporciona la identificacion del detalle de pedido.',
   `valorTotal` int(11) DEFAULT NULL COMMENT 'Valor total generado por los insumos solicitados.',
@@ -140,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `detallepedido`(
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.detallepedido: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.detallepedido: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `detallepedido` DISABLE KEYS */;
 INSERT INTO `detallepedido` (`id`, `cantidad`, `valorTotal`, `estado`, `pedido_id`, `producto_codigo`)
 VALUES (1, 2, 150000, 'ACTIVO', 1, 1);
@@ -148,7 +149,8 @@ VALUES (1, 2, 150000, 'ACTIVO', 1, 1);
 
 -- Volcando estructura para tabla jovita.detalleventa
 DROP TABLE IF EXISTS `detalleventa`;
-CREATE TABLE IF NOT EXISTS `detalleventa`(
+CREATE TABLE IF NOT EXISTS `detalleventa`
+(
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `totalVenta` int(11) DEFAULT NULL COMMENT 'Describe el valor total vendido.',
   `cantidad` int(11) DEFAULT NULL COMMENT 'Describe el numero de unidades de cada producto que se va a vender.',
@@ -166,12 +168,34 @@ CREATE TABLE IF NOT EXISTS `detalleventa`(
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.detalleventa: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.detalleventa: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `detalleventa` DISABLE KEYS */;
 INSERT INTO `detalleventa` (`id`, `totalVenta`, `cantidad`, `PrecioUnidad`, `estado`, `facturaVenta_id`,
                             `producto_codigo`)
 VALUES (1, 24000, 2, 12000, 'ACTIVO', 1, 1);
 /*!40000 ALTER TABLE `detalleventa` ENABLE KEYS */;
+
+-- Volcando estructura para tabla jovita.estado_productos
+DROP TABLE IF EXISTS `estado_productos`;
+CREATE TABLE IF NOT EXISTS `estado_productos`
+(
+    `id`   int(11)                                                NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `name` (`name`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
+
+-- Volcando datos para la tabla jovita.estado_productos: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `estado_productos`
+    DISABLE KEYS */;
+INSERT INTO `estado_productos` (`id`, `name`)
+VALUES (1, 'ACTIVO'),
+       (2, 'INACTIVO');
+/*!40000 ALTER TABLE `estado_productos`
+    ENABLE KEYS */;
 
 -- Volcando estructura para tabla jovita.facturaventa
 DROP TABLE IF EXISTS `facturaventa`;
@@ -194,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `facturaventa`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.facturaventa: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.facturaventa: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `facturaventa` DISABLE KEYS */;
 INSERT INTO `facturaventa` (`id`, `numero`, `fecha`, `estado`, `cliente_id`, `admin_users_id`)
 VALUES (1, 235345, '2019-06-10', 'ACTIVO', 1, 1),
@@ -239,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `migrations`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla jovita.migrations: ~29 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.migrations: ~27 rows (aproximadamente)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`)
 VALUES (1, '2017_08_24_000000_create_activations_table', 1),
@@ -290,7 +314,7 @@ CREATE TABLE IF NOT EXISTS `model_has_permissions`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla jovita.model_has_permissions: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.model_has_permissions: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `model_has_permissions` DISABLE KEYS */;
 INSERT INTO `model_has_permissions` (`id`, `permission_id`, `model_type`, `model_id`)
 VALUES (1, 1, 'Brackets\\AdminAuth\\Models\\AdminUser', 2),
@@ -338,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `ofreproveedor`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.ofreproveedor: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.ofreproveedor: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `ofreproveedor` DISABLE KEYS */;
 INSERT INTO `ofreproveedor` (`id`, `identificacion`, `descuento`, `estado`, `unidad`, `precio`, `proveedor_id`,
                              `producto_id`)
@@ -366,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `pedido`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.pedido: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.pedido: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
 INSERT INTO `pedido` (`id`, `numeroPedido`, `estado`, `fecha`, `proveedor_id`, `admin_users_id`)
 VALUES (1, 25345245, 'ACTIVO', '2019-06-03', 1, 1);
@@ -387,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `permissions`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla jovita.permissions: ~75 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.permissions: ~69 rows (aproximadamente)
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`)
 VALUES (1, 'admin', 'admin', '2019-05-31 18:47:00', '2019-05-31 18:47:00'),
@@ -486,10 +510,10 @@ CREATE TABLE IF NOT EXISTS `producto`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.producto: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.producto: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
 INSERT INTO `producto` (`id`, `codigo`, `nombre`, `unidad`, `precioP`, `estado`, `existencia`, `tipo`)
-VALUES (1, 'GA7020', 'Miel', 'Litro', 25000, 'ACTIVO', 2, 'Producto');
+VALUES (1, 'GA7020', 'Miel', 'Litro', 25000, 'ACTIVO', 2, 'VENTA');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 
 -- Volcando estructura para tabla jovita.productoproveedor
@@ -508,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `productoproveedor` (
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.productoproveedor: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.productoproveedor: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `productoproveedor` DISABLE KEYS */;
 INSERT INTO `productoproveedor` (`id`, `producto_id`, `proveedor_id`)
 VALUES (1, 1, 1);
@@ -530,7 +554,7 @@ CREATE TABLE IF NOT EXISTS `proveedor`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
--- Volcando datos para la tabla jovita.proveedor: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.proveedor: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
 INSERT INTO `proveedor` (`id`, `codigo`, `empresa`, `representante`, `estado`)
 VALUES (1, 1234, 'Jovita', 'Jovita representante', 'ACTIVO');
@@ -569,7 +593,7 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla jovita.role_has_permissions: ~75 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.role_has_permissions: ~73 rows (aproximadamente)
 /*!40000 ALTER TABLE `role_has_permissions` DISABLE KEYS */;
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`)
 VALUES (1, 1),
@@ -662,7 +686,7 @@ CREATE TABLE IF NOT EXISTS `tipo_documentos`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci COMMENT ='https://www.datos.gov.co/Salud-y-Protecci-n-Social/General-Tipos-de-documento/shc6-n6i6';
 
--- Volcando datos para la tabla jovita.tipo_documentos: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.tipo_documentos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tipo_documentos`
     DISABLE KEYS */;
 INSERT INTO `tipo_documentos` (`id`, `type`, `name`)
@@ -672,6 +696,27 @@ VALUES (1, 'CC', 'Cédula de Ciudadanía'),
        (4, 'RC', 'Registro Civil'),
        (5, 'TI', 'Tarjeta de Identidad');
 /*!40000 ALTER TABLE `tipo_documentos`
+    ENABLE KEYS */;
+
+-- Volcando estructura para tabla jovita.tipo_producto
+DROP TABLE IF EXISTS `tipo_producto`;
+CREATE TABLE IF NOT EXISTS `tipo_producto`
+(
+    `id`   int(10) unsigned                                       NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
+
+-- Volcando datos para la tabla jovita.tipo_producto: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipo_producto`
+    DISABLE KEYS */;
+INSERT INTO `tipo_producto` (`id`, `name`)
+VALUES (1, 'VENTA'),
+       (2, 'CONSUMO');
+/*!40000 ALTER TABLE `tipo_producto`
     ENABLE KEYS */;
 
 -- Volcando estructura para tabla jovita.translations
@@ -695,7 +740,7 @@ CREATE TABLE IF NOT EXISTS `translations`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla jovita.translations: ~176 rows (aproximadamente)
+-- Volcando datos para la tabla jovita.translations: ~165 rows (aproximadamente)
 /*!40000 ALTER TABLE `translations` DISABLE KEYS */;
 INSERT INTO `translations` (`id`, `namespace`, `group`, `key`, `text`, `metadata`, `created_at`, `updated_at`,
                             `deleted_at`)
