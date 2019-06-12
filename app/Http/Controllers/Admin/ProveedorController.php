@@ -5,6 +5,7 @@ use App\Http\Requests\Admin\Proveedor\DestroyProveedor;
 use App\Http\Requests\Admin\Proveedor\IndexProveedor;
 use App\Http\Requests\Admin\Proveedor\StoreProveedor;
 use App\Http\Requests\Admin\Proveedor\UpdateProveedor;
+use App\Models\EstadoProveedor;
 use App\Models\Proveedor;
 use Brackets\AdminListing\Facades\AdminListing;
 use Illuminate\Http\Response;
@@ -15,14 +16,14 @@ class ProveedorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexProveedor $request
+     * @param IndexProveedor $request
      * @return Response|array
      */
     public function index(IndexProveedor $request)
     {
         // create and AdminListing instance for a specific model and
         $data = AdminListing::create(Proveedor::class)->processRequestAndGet(
-            // pass the request with params
+        // pass the request with params
             $request,
 
             // set columns to query
@@ -49,14 +50,17 @@ class ProveedorController extends Controller
     public function create()
     {
         $this->authorize('admin.proveedor.create');
-
-        return view('admin.proveedor.create');
+        $proveedor = new Proveedor();
+        $proveedor->estado = EstadoProveedor::all()->first()->name;
+        return view('admin.proveedor.create')
+            ->with('proveedor', $proveedor)
+            ->with('estados', EstadoProveedor::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreProveedor $request
+     * @param StoreProveedor $request
      * @return Response|array
      */
     public function store(StoreProveedor $request)
@@ -77,7 +81,7 @@ class ProveedorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Proveedor $proveedor
+     * @param Proveedor $proveedor
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -91,7 +95,7 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Proveedor $proveedor
+     * @param Proveedor $proveedor
      * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -101,14 +105,14 @@ class ProveedorController extends Controller
 
         return view('admin.proveedor.edit', [
             'proveedor' => $proveedor,
-        ]);
+        ])->with('estados', EstadoProveedor::all());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateProveedor $request
-     * @param  Proveedor $proveedor
+     * @param UpdateProveedor $request
+     * @param Proveedor $proveedor
      * @return Response|array
      */
     public function update(UpdateProveedor $request, Proveedor $proveedor)
@@ -129,8 +133,8 @@ class ProveedorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DestroyProveedor $request
-     * @param  Proveedor $proveedor
+     * @param DestroyProveedor $request
+     * @param Proveedor $proveedor
      * @return Response|bool
      * @throws \Exception
      */
@@ -145,4 +149,4 @@ class ProveedorController extends Controller
         return redirect()->back();
     }
 
-    }
+}
