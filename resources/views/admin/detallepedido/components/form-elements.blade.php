@@ -3,7 +3,8 @@
     <label for="cantidad" class="col-form-label text-md-right"
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.detallepedido.columns.cantidad') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.cantidad" v-validate="'integer'" @input="validate($event)" class="form-control"
+        <input type="text" v-model="form.cantidad" v-validate="'numeric|required'" @input="validate($event)"
+               class="form-control"
                :class="{'form-control-danger': errors.has('cantidad'), 'form-control-success': this.fields.cantidad && this.fields.cantidad.valid}"
                id="cantidad" name="cantidad" placeholder="{{ trans('admin.detallepedido.columns.cantidad') }}">
         <div v-if="errors.has('cantidad')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('cantidad')
@@ -17,9 +18,12 @@
     <label for="estado" class="col-form-label text-md-right"
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.detallepedido.columns.estado') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.estado" v-validate="''" @input="validate($event)" class="form-control"
-               :class="{'form-control-danger': errors.has('estado'), 'form-control-success': this.fields.estado && this.fields.estado.valid}"
-               id="estado" name="estado" placeholder="{{ trans('admin.detallepedido.columns.estado') }}">
+        <multiselect v-model="form.estado" placeholder="{{ trans('admin.facturaventum.columns.estado') }}"
+                     :allow-empty="false"
+                     :options="{{ $estados->toJson()}}.map(type => type.name)"
+                     :custom-label="opt => {{$estados->toJson()}}.find(x => x.name == opt).name"
+                     :close-on-select="true"
+                     open-direction="bottom"></multiselect>
         <div v-if="errors.has('estado')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('estado') }}
         </div>
     </div>
@@ -31,6 +35,7 @@
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.detallepedido.columns.pedido_id') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
         <multiselect v-model="form.pedido_id" placeholder="{{  trans('admin.detallepedido.columns.pedido_id')  }}"
+                     :allow-empty="false"
                      :options="{{ $pedidos->toJson()}}.map(type => type.id)"
                      :custom-label="opt => {{$pedidos->toJson()}}.find(x => x.id == opt).numeroPedido"
                      :close-on-select="true"
@@ -47,6 +52,7 @@
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.detallepedido.columns.producto_codigo') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
         <multiselect v-model="form.producto_codigo"
+                     :allow-empty="false"
                      placeholder="{{  trans('admin.detallepedido.columns.producto_codigo')  }}"
                      :options="{{ $productos->toJson()}}.map(type => type.id)"
                      :custom-label="opt => {{$productos->toJson()}}.find(x => x.id == opt).codigo"
@@ -63,7 +69,7 @@
     <label for="valorTotal" class="col-form-label text-md-right"
            :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.detallepedido.columns.valorTotal') }}</label>
     <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.valorTotal" v-validate="'integer'" @input="validate($event)"
+        <input type="text" v-model="form.valorTotal" v-validate="'required|numeric'" @input="validate($event)"
                class="form-control"
                :class="{'form-control-danger': errors.has('valorTotal'), 'form-control-success': this.fields.valorTotal && this.fields.valorTotal.valid}"
                id="valorTotal" name="valorTotal" placeholder="{{ trans('admin.detallepedido.columns.valorTotal') }}">

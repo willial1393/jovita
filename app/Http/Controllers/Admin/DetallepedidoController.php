@@ -6,6 +6,7 @@ use App\Http\Requests\Admin\Detallepedido\IndexDetallepedido;
 use App\Http\Requests\Admin\Detallepedido\StoreDetallepedido;
 use App\Http\Requests\Admin\Detallepedido\UpdateDetallepedido;
 use App\Models\Detallepedido;
+use App\Models\EstadoDetallePedido;
 use App\Models\Pedido;
 use App\Models\Producto;
 use Illuminate\Http\Response;
@@ -17,7 +18,7 @@ class DetallepedidoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexDetallepedido $request
+     * @param IndexDetallepedido $request
      * @return Response|array
      */
     public function index(IndexDetallepedido $request)
@@ -49,17 +50,23 @@ class DetallepedidoController extends Controller
      */
     public function create()
     {
+        $detallepedido = new Detallepedido();
+        $detallepedido->pedido_id = Pedido::all()->first()->id;
+        $detallepedido->producto_codigo = Producto::all()->first()->id;
+        $detallepedido->estado = EstadoDetallePedido::all()->first()->name;
         $this->authorize('admin.detallepedido.create');
 
         return view('admin.detallepedido.create')
             ->with('pedidos', Pedido::all())
+            ->with('estados', EstadoDetallePedido::all())
+            ->with('detallepedido', $detallepedido)
             ->with('productos', Producto::all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreDetallepedido $request
+     * @param StoreDetallepedido $request
      * @return Response|array
      */
     public function store(StoreDetallepedido $request)
@@ -80,7 +87,7 @@ class DetallepedidoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Detallepedido $detallepedido
+     * @param Detallepedido $detallepedido
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -94,7 +101,7 @@ class DetallepedidoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Detallepedido $detallepedido
+     * @param Detallepedido $detallepedido
      * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -105,14 +112,15 @@ class DetallepedidoController extends Controller
         return view('admin.detallepedido.edit', [
             'detallepedido' => $detallepedido,
         ])->with('pedidos', Pedido::all())
+            ->with('estados', EstadoDetallePedido::all())
             ->with('productos', Producto::all());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateDetallepedido $request
-     * @param  Detallepedido $detallepedido
+     * @param UpdateDetallepedido $request
+     * @param Detallepedido $detallepedido
      * @return Response|array
      */
     public function update(UpdateDetallepedido $request, Detallepedido $detallepedido)
@@ -133,8 +141,8 @@ class DetallepedidoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DestroyDetallepedido $request
-     * @param  Detallepedido $detallepedido
+     * @param DestroyDetallepedido $request
+     * @param Detallepedido $detallepedido
      * @return Response|bool
      * @throws \Exception
      */
@@ -149,4 +157,4 @@ class DetallepedidoController extends Controller
         return redirect()->back();
     }
 
-    }
+}
