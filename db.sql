@@ -200,6 +200,27 @@ INSERT INTO `estado_factura` (`id`, `name`) VALUES
 	(2, 'ABIERTA');
 /*!40000 ALTER TABLE `estado_factura` ENABLE KEYS */;
 
+-- Volcando estructura para tabla jovita.estado_oferta_proveedor
+DROP TABLE IF EXISTS `estado_oferta_proveedor`;
+CREATE TABLE IF NOT EXISTS `estado_oferta_proveedor`
+(
+    `id`   int(10) unsigned                    NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
+
+-- Volcando datos para la tabla jovita.estado_oferta_proveedor: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `estado_oferta_proveedor`
+    DISABLE KEYS */;
+INSERT INTO `estado_oferta_proveedor` (`id`, `name`)
+VALUES (1, 'ACTIVO'),
+       (2, 'INACTIVO');
+/*!40000 ALTER TABLE `estado_oferta_proveedor`
+    ENABLE KEYS */;
+
 -- Volcando estructura para tabla jovita.estado_pedido
 DROP TABLE IF EXISTS `estado_pedido`;
 CREATE TABLE IF NOT EXISTS `estado_pedido` (

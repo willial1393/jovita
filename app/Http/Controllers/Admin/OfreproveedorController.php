@@ -5,6 +5,7 @@ use App\Http\Requests\Admin\Ofreproveedor\DestroyOfreproveedor;
 use App\Http\Requests\Admin\Ofreproveedor\IndexOfreproveedor;
 use App\Http\Requests\Admin\Ofreproveedor\StoreOfreproveedor;
 use App\Http\Requests\Admin\Ofreproveedor\UpdateOfreproveedor;
+use App\Models\EstadoOfertaProveedor;
 use App\Models\Ofreproveedor;
 use App\Models\Producto;
 use App\Models\Proveedor;
@@ -50,9 +51,14 @@ class OfreproveedorController extends Controller
     public function create()
     {
         $this->authorize('admin.ofreproveedor.create');
-
+        $ofreproveedor = new Ofreproveedor();
+        $ofreproveedor->estado = EstadoOfertaProveedor::all()->first()->name;
+        $ofreproveedor->proveedor_id = Proveedor::all()->first()->id;
+        $ofreproveedor->producto_id = Producto::all()->first()->id;
         return view('admin.ofreproveedor.create')
+            ->with('ofreproveedor', $ofreproveedor)
             ->with('proveedores', Proveedor::all())
+            ->with('estados', EstadoOfertaProveedor::all())
             ->with('productos', Producto::all());
     }
 

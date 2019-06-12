@@ -9,9 +9,9 @@
         <div class="card">
 
             <ofreproveedor-form
-                :action="'{{ url('admin/ofreproveedors') }}'"
-                
-                inline-template>
+                    :action="'{{ url('admin/ofreproveedors') }}'"
+                    :data="{{ $ofreproveedor->toJson() }}"
+                    inline-template>
 
                 <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="this.action" novalidate>
 
