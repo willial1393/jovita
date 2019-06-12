@@ -6,6 +6,7 @@ use App\Http\Requests\Admin\Facturaventum\IndexFacturaventum;
 use App\Http\Requests\Admin\Facturaventum\StoreFacturaventum;
 use App\Http\Requests\Admin\Facturaventum\UpdateFacturaventum;
 use App\Models\Cliente;
+use App\Models\EstadoFactura;
 use App\Models\Facturaventum;
 use Brackets\AdminAuth\Models\AdminUser;
 use Illuminate\Http\Response;
@@ -52,11 +53,14 @@ class FacturaventaController extends Controller
     {
         $facturaventum = new Facturaventum();
         $facturaventum->admin_users_id = Auth::id();
+        $facturaventum->estado = EstadoFactura::all()->first()->name;
+        $facturaventum->cliente_id = Cliente::all()->first()->id;
         $this->authorize('admin.facturaventum.create');
 
         return view('admin.facturaventum.create')
             ->with('facturaventum', $facturaventum)
             ->with('clientes', Cliente::all())
+            ->with('estados', EstadoFactura::all())
             ->with('usuarios', AdminUser::all());
     }
 
@@ -109,6 +113,7 @@ class FacturaventaController extends Controller
         return view('admin.facturaventum.edit', [
             'facturaventum' => $facturaventum,
         ])->with('clientes', Cliente::all())
+            ->with('estados', EstadoFactura::all())
             ->with('usuarios', AdminUser::all());
     }
 
