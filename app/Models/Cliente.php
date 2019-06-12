@@ -15,6 +15,7 @@ class Cliente extends Model
 
     ];
 
+
     protected $hidden = [
 
     ];
@@ -34,6 +35,5 @@ class Cliente extends Model
     {
         return url('/admin/clientes/' . $this->getKey());
     }
-
 
 }

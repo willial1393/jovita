@@ -24,11 +24,11 @@ class StoreCliente extends FormRequest
     public function rules()
     {
         return [
-            'documento' => ['required', Rule::unique('cliente', 'documento'), 'string'],
-            'tipoDocumento' => ['nullable', 'string'],
-            'nombre' => ['nullable', 'string'],
-            'telefono' => ['nullable', 'string'],
-            'correo' => ['nullable', 'string'],
+            'documento' => ['required', Rule::unique('cliente', 'documento'), 'integer'],
+            'tipoDocumento' => ['required', 'string'],
+            'nombre' => ['required', 'string'],
+            'telefono' => ['required', 'string'],
+            'correo' => ['required', 'string'],
             
         ];
     }

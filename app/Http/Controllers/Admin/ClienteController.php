@@ -1,29 +1,28 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Admin\Cliente\DestroyCliente;
 use App\Http\Requests\Admin\Cliente\IndexCliente;
 use App\Http\Requests\Admin\Cliente\StoreCliente;
 use App\Http\Requests\Admin\Cliente\UpdateCliente;
-use App\Http\Requests\Admin\Cliente\DestroyCliente;
-use Brackets\AdminListing\Facades\AdminListing;
 use App\Models\Cliente;
+use App\Models\TipoDocumentos;
+use Brackets\AdminListing\Facades\AdminListing;
+use Illuminate\Http\Response;
 
 class ClienteController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
-     * @param  IndexCliente $request
+     * @param IndexCliente $request
      * @return Response|array
      */
     public function index(IndexCliente $request)
     {
         // create and AdminListing instance for a specific model and
         $data = AdminListing::create(Cliente::class)->processRequestAndGet(
-            // pass the request with params
+        // pass the request with params
             $request,
 
             // set columns to query
@@ -49,15 +48,20 @@ class ClienteController extends Controller
      */
     public function create()
     {
+        $cliente = new Cliente();
+        $documentos = TipoDocumentos::all();
+        $cliente->tipoDocumento = $documentos->first();
         $this->authorize('admin.cliente.create');
 
-        return view('admin.cliente.create');
+        return view('admin.cliente.create')
+            ->with('cliente', $cliente)
+            ->with('documentos', $documentos);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreCliente $request
+     * @param StoreCliente $request
      * @return Response|array
      */
     public function store(StoreCliente $request)
@@ -78,7 +82,7 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Cliente $cliente
+     * @param Cliente $cliente
      * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -92,7 +96,7 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Cliente $cliente
+     * @param Cliente $cliente
      * @return Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -102,14 +106,14 @@ class ClienteController extends Controller
 
         return view('admin.cliente.edit', [
             'cliente' => $cliente,
-        ]);
+        ])->with('documentos', TipoDocumentos::all());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateCliente $request
-     * @param  Cliente $cliente
+     * @param UpdateCliente $request
+     * @param Cliente $cliente
      * @return Response|array
      */
     public function update(UpdateCliente $request, Cliente $cliente)
@@ -130,8 +134,8 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DestroyCliente $request
-     * @param  Cliente $cliente
+     * @param DestroyCliente $request
+     * @param Cliente $cliente
      * @return Response|bool
      * @throws \Exception
      */
@@ -146,4 +150,4 @@ class ClienteController extends Controller
         return redirect()->back();
     }
 
-    }
+}

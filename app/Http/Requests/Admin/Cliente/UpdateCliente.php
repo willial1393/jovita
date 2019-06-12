@@ -25,10 +25,10 @@ class UpdateCliente extends FormRequest
     {
         return [
             'documento' => ['sometimes', Rule::unique('cliente', 'documento')->ignore($this->cliente->getKey(), $this->cliente->getKeyName()), 'string'],
-            'tipoDocumento' => ['nullable', 'string'],
-            'nombre' => ['nullable', 'string'],
-            'telefono' => ['nullable', 'string'],
-            'correo' => ['nullable', 'string'],
+            'tipoDocumento' => ['required', 'string'],
+            'nombre' => ['required', 'string'],
+            'telefono' => ['required', 'string'],
+            'correo' => ['required', 'string'],
             
         ];
     }

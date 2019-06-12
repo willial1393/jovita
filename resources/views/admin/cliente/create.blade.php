@@ -9,9 +9,9 @@
         <div class="card">
 
             <cliente-form
-                :action="'{{ url('admin/clientes') }}'"
-                
-                inline-template>
+                    :action="'{{ url('admin/clientes') }}'"
+                    :data="{{ $cliente->toJson() }}"
+                    inline-template>
 
                 <form class="form-horizontal form-create" method="post" @submit.prevent="onSubmit" :action="this.action" novalidate>
 
