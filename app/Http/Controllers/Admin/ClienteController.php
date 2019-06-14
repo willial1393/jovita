@@ -50,7 +50,7 @@ class ClienteController extends Controller
     {
         $cliente = new Cliente();
         $documentos = TipoDocumentos::all();
-        $cliente->tipoDocumento = $documentos->first();
+        $cliente->tipoDocumento = $documentos->first()->type;
         $this->authorize('admin.cliente.create');
 
         return view('admin.cliente.create')
